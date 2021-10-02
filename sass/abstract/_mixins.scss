@@ -1,0 +1,11 @@
+@mixin flex-center($direction: "both") {
+  display: flex;
+  @if $direction == "both" {
+    justify-content: center;
+    align-items: center;
+  }@else if $direction == "vertical" {
+    align-items: center;
+  }@else if $direction == "horizontal" {
+    justify-content: center;
+  }
+}
