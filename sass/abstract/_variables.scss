@@ -1,9 +1,14 @@
-// Transitions
+/* Transitions */
 $default-transition-timing: 150ms;
-
-// Colors
-$font-color: #222;
+/* Colors */
+  /* Font Colors */
+$primary-font-color: #222;
+$secondary-font-color: #EFF4FF;
+  /* Blue */
+$dark-blue: #003FCB;
+$dark-blue--hover: darken(#003FCB, 5);
 $primary-blue: #0068FF;
 $primary-blue--hover: #0A5FDA;
-$primary-white: #FFF;
-$primary-white--hover: rgba(255, 255, 255, .8);
+  /* White */
+$primary-white: #EFF4FF;
+$primary-white--hover: rgba(239, 244, 255, .9);

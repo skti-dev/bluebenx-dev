@@ -1,4 +1,6 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
+a { text-decoration: none; color: inherit }
+ul, ol { list-style-type: none; }
 
 @font-face {
   font-family: "JanoSans";
@@ -14,7 +16,7 @@ html, body, #app {
 
 body {
   font-family: "JanoSans", sans-serif;
-  color: $font-color;
+  color: $primary-font-color;
 }
 
 /* Input Fields */
@@ -29,7 +31,7 @@ body {
   }
   label {
     position: absolute;
-    transform: translate(0, 8px) scale(1);
+    transform: translate(0, 12.5px) scale(1);
     transform-origin: top left;
     transition:  all $default-transition-timing ease-in-out;
   }
@@ -69,11 +71,11 @@ body {
   @include flex-center;
   transition: all $default-transition-timing ease-in-out;
   &.blue {
-    background-color: $primary-blue;
+    background-color: $dark-blue;
     &:hover {
-      background-color: $primary-blue--hover
+      background-color: $dark-blue--hover;
     }
-    color: $primary-white;
+    color: $secondary-font-color;
   }
   &.white {
     background-color: $primary-white;

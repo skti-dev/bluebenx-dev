@@ -3,7 +3,8 @@ export const inputFieldHandler = {
     inputFocus(e) {
       try {
         const { target } = e
-        const { parentElement } = target
+        const { parentElement, nextSibling } = target
+        if(nextSibling) nextSibling.focus()
         parentElement.classList.add("active")
       }catch(e) {
         console.error("Erro ao focar no input")

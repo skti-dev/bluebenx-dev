@@ -7,19 +7,19 @@
     <form action="#" method="POST" @submit.prevent class="login__form">
       <fieldset>
         <div class="v__field">
-          <label for="user"> Usuário </label>
+          <label for="user" @click="inputFocus"> Usuário </label>
           <input type="text" name="user" placeholder="Digite o seu nome de usuário" @focus="inputFocus" @blur="inputBlur" required />
         </div>
         <div class="v__field">
-          <label for="user"> Senha </label>
-          <input type="text" name="user" placeholder="Digite a sua senha" @focus="inputFocus" @blur="inputBlur" required />
+          <label for="password" @click="inputFocus"> Senha </label>
+          <input type="password" name="password" placeholder="Digite a sua senha" @focus="inputFocus" @blur="inputBlur" required />
         </div>
       </fieldset>
       <button class="btn white"> Acessar </button>
     </form>
-    <p> <a href="#"> Esqueci minha senha </a> </p>
+    <p class="login__password-reset"> <a href="#"> Esqueci minha senha </a> </p>
     <div class="login__footer">
-      <p> AInda não possui um cadastro? </p>
+      <p> Ainda não possui um cadastro? </p>
       <button class="btn blue"> Cadastrar </button>
     </div>
   </section>
@@ -32,7 +32,3 @@ export default {
   mixins: [inputFieldHandler]
 }
 </script>
-
-<style>
-
-</style>
