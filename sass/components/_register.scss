@@ -1,0 +1,15 @@
+.register {
+  --spacing: 20px;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: $primary-white;
+  padding: var(--spacing);
+}
+
+.register__steps {
+  flex: 1;
+  margin: 15px 0;
+}

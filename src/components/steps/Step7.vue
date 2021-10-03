@@ -1,6 +1,6 @@
 <template>
   <div>
-    STEP 1
+    STEP 7
   </div>
 </template>
 

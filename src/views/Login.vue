@@ -1,7 +1,7 @@
 <template>
   <section class="login">
     <div class="login__title">
-      <img src="../../assets/images/bluebenx-logo.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
+      <img src="../assets/images/bluebenx-logo.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
       <h1> Olá, seja bem-vindo! </h1>
     </div>
     <form action="#" method="POST" @submit.prevent class="login__form">
@@ -20,7 +20,9 @@
     <p class="login__password-reset"> <a href="#"> Esqueci minha senha </a> </p>
     <div class="login__footer">
       <p> Ainda não possui um cadastro? </p>
-      <button class="btn blue"> Cadastrar </button>
+      <router-link to="/register">
+        <button class="btn blue"> Cadastrar </button> 
+      </router-link>
     </div>
   </section>
 </template>
