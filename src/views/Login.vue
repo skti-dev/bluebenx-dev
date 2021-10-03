@@ -15,13 +15,13 @@
           <input type="password" name="password" placeholder="Digite a sua senha" @focus="inputFocus" @blur="inputBlur" required />
         </div>
       </fieldset>
-      <button class="btn white"> Acessar </button>
+      <button class="btn white box-shadow"> Acessar </button>
     </form>
     <p class="login__password-reset"> <a href="#"> Esqueci minha senha </a> </p>
     <div class="login__footer">
       <p> Ainda não possui um cadastro? </p>
       <router-link to="/register">
-        <button class="btn blue"> Cadastrar </button> 
+        <button class="btn blue box-shadow"> Cadastrar </button> 
       </router-link>
     </div>
   </section>

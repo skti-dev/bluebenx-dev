@@ -1,19 +1,27 @@
 <template>
   <section class="register">
     <div class="register__step-count">
-      <fa-icon :icon="['fas', 'chevron-left']" @click="previousStep" />
-      <span v-text="`Passo ${currentStep} de ${totalSteps}`"></span>
+      <fa-icon :icon="['fas', 'chevron-left']" @click="returnToLogin" />
+      <span class="text--bold" v-text="`Passo ${currentStep} de ${totalSteps}`"></span>
     </div>
     <div class="register__steps">
       <transition name="slide" mode="out-in">
         <component v-bind:is="currentView" />
       </transition>
     </div>
-    <div class="register__footer">
-      <span v-text="`Próximo`"></span>
-      <span class="icon__circle blue" @click="nextStep">
-        <fa-icon :icon="['fas', 'arrow-right']" />
-      </span>
+    <div class="register__footer" :class="{'single-btn' : !hasBackButton}">
+      <div class="step__selection" v-if="hasBackButton">
+        <span class="icon__circle white box-shadow" @click="previousStep">
+          <fa-icon :icon="['fas', 'arrow-left']" />
+        </span>
+        <span class="text--bold" v-text="`Voltar`"></span>
+      </div>
+      <div class="step__selection">
+        <span class="text--bold" v-text="`Próximo`"></span>
+        <span class="icon__circle blue box-shadow" @click="nextStep">
+          <fa-icon :icon="['fas', 'arrow-right']" />
+        </span>
+      </div>
     </div>
   </section>
 </template>
@@ -38,11 +46,16 @@ export default {
   computed: {
     currentView() {
       return `Step${this.currentStep}`
+    },
+    hasBackButton() {
+      return this.currentStep > 1
     }
   },
   methods: {
+    returnToLogin() {
+      this.$router.push({ name: "login" })
+    },
     previousStep() {
-      if(this.currentStep === 1) return this.$router.push({ name: "login" })
       this.currentStep--
     },
     nextStep() {

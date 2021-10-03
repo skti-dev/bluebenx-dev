@@ -9,6 +9,12 @@ $dark-blue: #003FCB;
 $dark-blue--hover: darken(#003FCB, 5);
 $primary-blue: #0068FF;
 $primary-blue--hover: #0A5FDA;
+$lighter-blue: #EFF4FF;
+$lighter-blue--hover: rgba(239, 244, 255, .9);
   /* White */
-$primary-white: #EFF4FF;
-$primary-white--hover: rgba(239, 244, 255, .9);
+$primary-white: #FFF;
+$primary-white--hover: rgba(255, 255, 255, .9);
+  /* Box shadow tones */
+$bs-1: rgba(0, 0, 0, 0.2);
+$bs-2: rgba(0, 0, 0, 0.14);
+$bs-3: rgba(0, 0, 0, 0.12);

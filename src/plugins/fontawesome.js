@@ -1,9 +1,9 @@
 import Vue from "vue"
 import { library, dom } from "@fortawesome/fontawesome-svg-core"
-import { faChevronLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faChevronLeft, faArrowRight)
+library.add(faChevronLeft, faArrowRight, faArrowLeft)
 
 dom.watch()
 
