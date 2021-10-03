@@ -1,15 +1,33 @@
 .register {
-  --spacing: 20px;
+  $spacing: 20px;
 
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   background-color: $primary-white;
-  padding: var(--spacing);
+  padding: $spacing;
+}
+
+.register__step-count {
+  @include flex-center("vertical");
+  justify-content: space-between;
+  color: $dark-blue;
+  span {
+    font-weight: bold;
+  }
 }
 
 .register__steps {
   flex: 1;
   margin: 15px 0;
+}
+
+.register__footer {
+  @include flex-center("vertical");
+  justify-content: flex-end;
+  span:nth-child(1) {
+    margin-right: 10px;
+    font-weight: bold;
+  }
 }

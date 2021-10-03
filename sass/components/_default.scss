@@ -70,17 +70,35 @@ body {
   border-radius: 2.5px;
   @include flex-center;
   transition: all $default-transition-timing ease-in-out;
-  &.blue {
-    background-color: $dark-blue;
-    &:hover {
-      background-color: $dark-blue--hover;
-    }
-    color: $secondary-font-color;
+}
+
+/* Icon Circle */
+.icon__circle {
+  $circle-dimension: 50px;
+  @include flex-center;
+  min-width: $circle-dimension;
+  width: $circle-dimension;
+  min-height: $circle-dimension;
+  height: $circle-dimension;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  svg {
+    font-size: 1.4em
   }
-  &.white {
-    background-color: $primary-white;
-    &:hover {
-      background-color: $primary-white--hover
-    }
+}
+
+/* Colors for button styles */
+.blue {
+  background-color: $dark-blue;
+  &:hover {
+    background-color: $dark-blue--hover;
+  }
+  color: $secondary-font-color;
+}
+.white {
+  background-color: $primary-white;
+  &:hover {
+    background-color: $primary-white--hover
   }
 }
