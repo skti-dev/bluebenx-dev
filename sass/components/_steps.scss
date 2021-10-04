@@ -1,0 +1,76 @@
+.step {
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+}
+
+.step__title {
+  @include flex-center;
+  color: $primary-blue;
+}
+
+.step__subtitle {
+  text-align: center;
+  font-size: 1.1em;
+}
+
+.step__form {
+  font-size: 1rem;
+  .v__field {
+    margin: 10px 0;
+  }
+}
+
+.code__validation {
+  width: 100%;
+  display: flex;
+  font-size: 1rem;
+  .code {
+    width: 20%;
+    max-width: 54px;
+    background: transparent;
+    text-align: center;
+    border: unset;
+    outline: unset;
+    border-bottom: 2px solid $primary-font-color;
+    font-size: 1.3em;
+    &:focus, &:active {
+      outline: unset;
+    }
+  }
+}
+
+.code__resend {
+  font-size: .8em;
+  color: $primary-blue;
+}
+
+.step__image {
+  @include flex-center;
+  img {
+    height: 88px;
+  }
+}
+
+.step__buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  button {
+    flex: 1;
+  }
+}
+
+.related-fields {
+  width: 100%;
+  display: flex;
+  .v__field {
+    margin: unset;
+    &:nth-child(1) {
+      margin-right: 10px;
+    }
+    &:nth-child(2) {
+      width: 100px;
+    }
+  }
+}

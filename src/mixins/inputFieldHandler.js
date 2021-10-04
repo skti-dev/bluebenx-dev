@@ -6,9 +6,9 @@ export const inputFieldHandler = {
         const { parentElement, nextSibling } = target
         if(nextSibling) nextSibling.focus()
         parentElement.classList.add("active")
-      }catch(e) {
+      }catch(error) {
         console.error("Erro ao focar no input")
-        console.error(e)
+        console.error(error)
       }
     },
     inputBlur(e) {
@@ -16,9 +16,9 @@ export const inputFieldHandler = {
         const { target } = e
         const { parentElement, value } = target
         if(!value) parentElement.classList.remove("active")
-      }catch(e) {
+      }catch(error) {
         console.error("Erro ao desfocar no input")
-        console.error(e)
+        console.error(error)
       }
     }
   }
