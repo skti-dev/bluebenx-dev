@@ -53,7 +53,9 @@
           <input type="text" name="state" :value="`{{ state }}`" disabled />
         </div>
       </div>
+      <button class="btn white text--default-blue box-shadow my-30 w-100" v-text="`Editar`"></button>
     </div>
+
   </div>
 </template>
 

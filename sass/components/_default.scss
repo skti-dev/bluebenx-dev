@@ -23,6 +23,7 @@ body {
 .v__field {
   padding: 0 8px;
   border: 1px solid $primary-font-color;
+  font-size: 1rem;
   &.white-border {
     border: 1px solid $primary-white;
   }
@@ -153,6 +154,9 @@ body {
 .text--default-blue {
   color: $primary-blue
 }
+.text--center {
+  text-align: center;
+}
 
 /* Margins */
   /* Top */
@@ -226,3 +230,8 @@ body {
   .my-40 {
     margin: 40px 0;
   }
+
+/* Width */
+.w-100 {
+  width: 100%
+}
