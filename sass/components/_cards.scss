@@ -1,0 +1,83 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0 30px;
+}
+
+.card {
+  width: 100%;
+  min-height: 125px;
+  background-color: #FFF;
+  color: $primary-font-color;
+  margin-bottom: 15px;
+  border-radius: 2.5px;
+  border-bottom: 4px solid $power-color;
+  padding: 10px;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .card__header {
+    @include flex-center("vertical");
+    justify-content: space-between;
+    h2 {
+      font-size: 1.275em
+    }
+    svg {
+      font-size: 1.5em;
+    }
+  }
+  .card__content {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    h1 {
+      font-size: 1.75em;
+      font-weight: normal;
+    }
+  }
+}
+
+.shortcuts {
+  padding-left: 30px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.shortcut {
+  $shortcut-dimensions: 95px;
+  @include flex-center;
+  width: $shortcut-dimensions;
+  min-width: $shortcut-dimensions;
+  height: $shortcut-dimensions;
+  min-height: $shortcut-dimensions;
+  color: $primary-font-color;
+  margin-right: 10px;
+  background: $primary-white;
+  border-radius: 5px;
+  font-size: 1rem;
+  &:last-child {
+    margin-right: 30px;
+  }
+  .shortcut__content {
+    @include flex-center;
+    flex-direction: column;
+    cursor: pointer;
+    opacity: .9;
+    transition: opacity $default-transition-timing;
+    &:hover {
+      opacity: 1;
+    }
+    svg {
+      font-size: 2.5em;
+    }
+    p {
+      font-size: .9em;
+      margin-top: 5px;
+    }
+  }
+}

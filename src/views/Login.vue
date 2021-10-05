@@ -15,7 +15,7 @@
           <input type="password" name="password" placeholder="Digite a sua senha" @focus="inputFocus" @blur="inputBlur" required />
         </div>
       </fieldset>
-      <button class="btn white box-shadow mt-45" v-text="`Acessar`"></button>
+      <button class="btn white box-shadow mt-45" v-text="`Acessar`" @click="$router.push({ name: 'home' })"></button>
     </form>
     <p class="login__password-reset"> <a href="#" v-text="`Esqueci minha senha`"></a> </p>
     <div class="login__footer mb-40">
