@@ -8,7 +8,7 @@
         <option value="CNH" v-text="`CNH`"></option>
       </select>
       <div class="step__image my-15">
-        <img src="../../assets/images/add_document.svg" alt="">
+        <img src="../../assets/images/document-img.png" alt="Celular sendo escaneado">
       </div>
       <transition name="fade">
         <div class="doc__selection" v-if="selectedDoc">

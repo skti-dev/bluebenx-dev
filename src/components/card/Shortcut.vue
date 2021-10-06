@@ -1,5 +1,5 @@
 <template>
-  <div class="shortcut">
+  <div class="shortcut box-shadow" :class="{'light-blue' : lightBlue}">
     <div class="shortcut__content">
       <fa-icon :icon="icon" />
       <p v-text="`${title}`"></p>
@@ -17,11 +17,11 @@ export default {
     icon: {
       type: Array,
       required: true
+    },
+    lightBlue: {
+      type: Boolean,
+      required: false
     }
   }
 }
 </script>
-
-<style>
-
-</style>

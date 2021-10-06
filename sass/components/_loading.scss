@@ -1,0 +1,24 @@
+.loading {
+  width: 100%;
+  min-height: 100%;
+  background-color: $dark-blue;
+  @include flex-center;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  font-size: 1rem;
+}
+
+.loading__content {
+  @include flex-center;
+  color: $primary-white;
+  h1 {
+    font-size: 2em;
+    font-weight: normal;
+    margin-right: 15px;
+  }
+  img {
+    height: 50px;
+  }
+}

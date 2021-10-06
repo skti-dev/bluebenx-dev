@@ -1,7 +1,7 @@
 <template>
   <div class="step">
     <div class="step__title mt-10">
-      <img src="../../assets/images/bluebenx-logo.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
+      <img src="../../assets/images/logo-bb-blue.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
       <h1 v-text="`Cadastro conta digital`" class="ml-5"></h1>
     </div>
     <h2 class="step__subtitle my-30" v-text="`Tudo certo? Então vamos lá!`"></h2>

@@ -2,7 +2,7 @@
   <section class="home">
     <div class="home__header">
       <div class="home__title">
-        <img class="mr-10" src="../assets/images/bluebenx-logo.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
+        <img class="mr-10" src="../assets/images/logo-bb.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
         <h3 v-text="`Olá, {{ socialName }}`"></h3>
       </div>
       <fa-icon class="mr-10" :icon="['fas', 'bell']" />
@@ -22,6 +22,7 @@
         :icon="shortcut.icon"
       />
     </div>
+    <div class="home__footer--aux"></div>
     <div class="home__footer">
       <ul>
         <li class="active">
@@ -32,7 +33,7 @@
           <fa-icon :icon="['fas', 'dollar-sign']" />
           <span v-text="`Investir`"></span>
         </li>
-        <li>
+        <li @click="$router.push({ name: 'support' })">
           <fa-icon :icon="['fas', 'info-circle']" />
           <span v-text="`Suporte`"></span>
         </li>

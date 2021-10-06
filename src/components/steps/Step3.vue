@@ -10,7 +10,8 @@
         <input type="number" maxlength="1" max="9" class="code mr-10 text--bold">
         <input type="number" maxlength="1" max="9" class="code mr-10 text--bold">
       </div>
-      <span class="code__resend" v-text="`Reenviar código: ${codeTime}s`"></span>
+      <span v-if="codeTime" class="code__resend" v-text="`Reenviar código: ${codeTime}s`"></span>
+      <span v-else class="code__resend cursor--click" v-text="`Reenviar código`"></span>
     </div>
   </div>
 </template>

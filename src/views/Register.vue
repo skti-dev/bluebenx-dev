@@ -1,7 +1,7 @@
 <template>
   <section class="register">
     <div class="register__step-count">
-      <fa-icon :icon="['fas', 'chevron-left']" @click="returnToLogin" />
+      <fa-icon :icon="['fas', 'chevron-left']" @click="returnToTerms" />
       <span class="text--bold" v-text="`Passo ${currentStep} de ${totalSteps}`"></span>
     </div>
     <div class="register__steps my-15">
@@ -11,7 +11,7 @@
         </keep-alive>
       </transition>
     </div>
-    <div class="register__footer" :class="{'single-btn' : !hasBackButton}">
+    <div class="register__footer" :class="{'single-btn' : !hasBackButton}" v-if="currentStep != 7">
       <div class="step__selection" v-if="hasBackButton">
         <span class="icon__circle white box-shadow" @click="previousStep">
           <fa-icon :icon="['fas', 'arrow-left']" />
@@ -56,8 +56,8 @@ export default {
     }
   },
   methods: {
-    returnToLogin() {
-      this.$router.push({ name: "login" })
+    returnToTerms() {
+      this.$router.push({ name: "terms" })
     },
     previousStep() {
       this.currentStep--

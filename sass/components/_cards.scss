@@ -51,10 +51,6 @@
 .shortcut {
   $shortcut-dimensions: 95px;
   @include flex-center;
-  width: $shortcut-dimensions;
-  min-width: $shortcut-dimensions;
-  height: $shortcut-dimensions;
-  min-height: $shortcut-dimensions;
   color: $primary-font-color;
   margin-right: 10px;
   background: $primary-white;
@@ -80,4 +76,23 @@
       margin-top: 5px;
     }
   }
+  &.light-blue {
+    $shortcut-dimensions: 120px;
+    background: $lighter-blue;
+    svg {
+      color: $dark-blue;
+      font-size: 2em;
+    }
+    p {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    &:last-child {
+      margin-right: unset;
+    }
+  }
+  width: $shortcut-dimensions;
+  min-width: $shortcut-dimensions;
+  height: $shortcut-dimensions;
+  min-height: $shortcut-dimensions;
 }

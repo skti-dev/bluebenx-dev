@@ -83,7 +83,7 @@ body {
 .btn {
   border: unset;
   min-width: 120px;
-  padding: 10px 15px;
+  padding: 12.5px 15px;
   border-radius: 2.5px;
   @include flex-center;
   transition: all $default-transition-timing ease-in-out;
@@ -154,8 +154,17 @@ body {
 .text--default-blue {
   color: $primary-blue
 }
+.text--dark-blue {
+  color: $dark-blue;
+}
 .text--center {
   text-align: center;
+}
+.cursor--click {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 /* Margins */
