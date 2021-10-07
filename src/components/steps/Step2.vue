@@ -4,7 +4,7 @@
       <p class="text--bold" v-text="`Como medida de segurança, precisamos confirmar alguns dados`"></p>
       <div class="v__field">
         <label for="email" @click="inputFocus" v-text="`E-mail`"></label>
-        <input type="email" name="email" placeholder="Digite o seu e-mail" @focus="inputFocus" @blur="inputBlur($event), validate($event)" v-model="email" />
+        <input type="email" name="email" placeholder="Digite o seu e-mail" @focus="inputFocus" @blur="inputBlur($event), validate($event, 'email')" v-model="email" />
       </div>
       <div class="v__field">
         <label for="phone" @click="inputFocus" v-text="`Telefone`"></label>

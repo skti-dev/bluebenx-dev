@@ -53,6 +53,16 @@ export default {
     },
     hasBackButton() {
       return this.currentStep > 1
+    },
+    validateCurrentStep() {
+      switch (this.currentStep) {
+        case 1:
+        case 2:
+        case 6:
+        return true
+        default:
+        return false
+      }
     }
   },
   methods: {
@@ -68,16 +78,20 @@ export default {
     },
     nextStep() {
       try {
-        // if(this.hasError) {
-        //   alert("Preencha todos os campos antes de prosseguir (1)")
-        //   return false
-        // }
-        // if(this.$children[this.currentStep - 1].hasEmptyInputs()) {
-        //   alert("Preencha todos os campos antes de prosseguir (2)")
-        //   return false
-        // }
+        if(this.validateCurrentStep) {
+          if(this.hasError) {
+            alert("Has error (1)")
+            return false
+          }
+
+          if(this.$children[this.currentStep - 1].hasEmptyInputs()) {
+            alert("Has empty inputs (2)")
+            return false
+          }
+
+          this.hasError = true
+        }
         this.currentStep < this.totalSteps ? this.currentStep++ : false
-        // this.hasError = true
       }catch(e) {
         console.error("Não foi possível avançar para o próximo step")
         console.error(e)

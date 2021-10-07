@@ -9,12 +9,13 @@
       <p class="text--bold" v-text="`Primeiramente, como você gostaria de ser chamado?`"></p>
       <div class="v__field">
         <label for="social-name" @click="inputFocus" v-text="`Nome social`"></label>
-        <input type="text" name="social-name" placeholder="Digite o seu nome social" @focus="inputFocus" @blur="inputBlur($event), validate($event)" v-model="socialName" />
+        <input type="text" vType="name" name="social-name" placeholder="Digite o seu nome social" @focus="inputFocus" @blur="inputBlur($event), validate($event, 'socialname')" v-model="socialName" />
+        <!-- <span class="message--invalid text--error" v-if="!user.isValid" v-text="`Usuário inválido`"></span> -->
       </div>
       <p class="text--bold" v-text="`Agora precisamos saber qual é seu número de CPF ou CNPJ`"></p>
       <div class="v__field">
         <label for="cpf-cnpj" @click="inputFocus" v-text="`CPF/CNPJ`"></label>
-        <input type="text" name="cpf-cnpj" placeholder="CPF ou CNPJ" @focus="inputFocus" @blur="inputBlur($event), validate($event)" v-model="cpfCnpj" />
+        <input type="text" vType="cpfcnpj" name="cpf-cnpj" placeholder="CPF ou CNPJ" @focus="inputFocus" @blur="inputBlur($event), validate($event, 'cpfcnpj')" v-model="cpfCnpj" />
       </div>
     </div>
   </div>

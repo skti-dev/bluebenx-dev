@@ -1,5 +1,5 @@
 <template>
-  <section class="terms">
+  <section class="terms" :class="{'is-loading' : pendingRequest}">
     <div class="terms__header">
       <fa-icon :icon="['fas', 'chevron-left']" @click="$router.push({ name: 'register-welcome' })" />
       <span class="text--bold text--center"> Termos e condições </span>
@@ -16,13 +16,69 @@
 
         Fusce at dictum neque. Donec aliquet ante et laoreet vehicula. Ut non suscipit libero. Sed faucibus scelerisque lacus, pharetra dapibus elit. Fusce gravida ex at mi ullamcorper, sed volutpat tortor interdum. Proin sodales tincidunt felis, in lobortis massa maximus at. Praesent a pulvinar magna, a facilisis velit. Sed in urna vel est pellentesque molestie. In blandit fringilla maximus. Duis justo lectus, interdum non augue sit amet, egestas lacinia tellus. Aenean mattis orci id nunc pellentesque condimentum.
       </p>
-      <button class="btn default-blue w-100 mt-30" v-text="`Aceitar`" @click="$router.push({ name: 'register' })"></button>
+      <button class="btn default-blue w-100 mt-30" v-text="`Aceitar`" @click="accept"></button>
     </div>
+    <transition name="slide">
+      <Loading v-if="pendingRequest" mode="out-in" />
+    </transition>
   </section>
 </template>
 
 <script>
-  export default {
+  import Loading from "@/components/loading/Loading"
 
+  export default {
+    components: { Loading },
+    data() {
+      return {
+        pendingRequest: false
+      }
+    },
+    methods: {
+      accept() {
+        try {
+          this.pendingRequest = true
+          const currentDate = new Date().toJSON()
+          console.log({ currentDate })
+
+          setTimeout(() => {
+            this.pendingRequest = false
+            this.$router.push({ name: 'register' })
+          }, 2000)
+        }catch(e) {
+          console.error("Erro ao aceitar os termos")
+          console.error(e)
+        }
+      }
+    }
   }
 </script>
+
+<style scoped>
+  @keyframes slide-in {
+    from {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+  @keyframes slide-out {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+  }
+  .slide-enter-active {
+    animation: slide-in 300ms ease;
+  }
+  .slide-leave-active {
+    animation: slide-out 300ms ease;
+  }
+</style>

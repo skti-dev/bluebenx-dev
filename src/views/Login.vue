@@ -6,16 +6,18 @@
     </div>
     <form action="#" method="POST" @submit.prevent class="login__form mb-30">
       <fieldset>
-        <div class="v__field white-border">
+        <div class="v__field white-border" :class="{'invalid' : !user.isValid}">
           <label for="user" @click="inputFocus" v-text="`Usuário`"></label>
-          <input type="text" name="user" placeholder="Digite o seu nome de usuário" @focus="inputFocus" @blur="inputBlur" required />
+          <input type="text" name="user" placeholder="Digite o seu nome de usuário" @focus="inputFocus" @blur="inputBlur" v-model="user.message" required />
+          <span class="message--invalid text--error" v-if="!user.isValid" v-text="`Usuário inválido`"></span>
         </div>
-        <div class="v__field white-border">
+        <div class="v__field white-border" :class="{'invalid' : !password.isValid}">
           <label for="password" @click="inputFocus" v-text="`Senha`"></label>
-          <input type="password" name="password" placeholder="Digite a sua senha" @focus="inputFocus" @blur="inputBlur" required />
+          <input type="password" name="password" placeholder="Digite a sua senha" @focus="inputFocus" @blur="inputBlur" v-model="password.message" required />
+          <span class="message--invalid text--error" v-if="!password.isValid" v-text="`Senha inválida`"></span>
         </div>
       </fieldset>
-      <button class="btn white box-shadow mt-45" v-text="`Acessar`" @click="$router.push({ name: 'home' })"></button>
+      <button class="btn white box-shadow mt-45" v-text="`Acessar`" @click="validateLogin"></button>
     </form>
     <p class="login__password-reset"> <a href="#" v-text="`Esqueci minha senha`"></a> </p>
     <div class="login__footer mb-40">
@@ -31,6 +33,32 @@
 import { inputFieldHandler } from "@/mixins/inputFieldHandler"
 
 export default {
-  mixins: [inputFieldHandler]
+  mixins: [inputFieldHandler],
+  data() {
+    return {
+      user: {
+        message: "",
+        isValid: true
+      },
+      password: {
+        message: "",
+        isValid: true
+      }
+    }
+  },
+  methods: {
+    validateInput(key) {
+      if(!this[key].message || !this[key].message.trim("")) {
+        this[key].isValid = false
+        return false
+      }
+
+      this[key].isValid = true
+      return true
+    },
+    validateLogin() {
+      if(this.validateInput("user") && this.validateInput("password")) this.$router.push({ name: 'home' })
+    }
+  }
 }
 </script>

@@ -27,6 +27,10 @@ body {
   &.white-border {
     border: 1px solid $primary-white;
   }
+  &.invalid {
+    border: 1px solid $color-error;
+    animation: shake 1000ms cubic-bezier(.36,.07,.19,.97) both;
+  }
   border-radius: 5px;
   position: relative;
   margin-bottom: 5px;
@@ -64,6 +68,30 @@ body {
       visibility: visible;
     }
   }
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.message--invalid {
+  position: absolute;
+  left: 5px;
+  bottom: -20px;
 }
 
 /* Select */
@@ -129,6 +157,13 @@ body {
     color: $dark-blue;
   }
 }
+.power-color {
+  background-color: $power-color;
+  &:hover {
+    background-color: darken($power-color, 5);
+  }
+  color: $primary-font-color;
+}
 
 /* Box shadow */
 .box-shadow {
@@ -165,6 +200,9 @@ body {
   &:hover {
     text-decoration: underline;
   }
+}
+.text--error {
+  color: $color-error;
 }
 
 /* Margins */
@@ -243,4 +281,11 @@ body {
 /* Width */
 .w-100 {
   width: 100%
+}
+
+/* Loading class */
+.is-loading {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
 }
