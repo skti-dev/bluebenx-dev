@@ -7,13 +7,13 @@ export const stepValidationHandler = {
         let isValid = this.isEmpty(value)
         if(isValid) {
           switch(origin) {
-            case "socialname":
+            case "socialName":
               isValid = this.socialNameValidation(value)
             break
             case "name":
               isValid = this.nameValidation(value)
             break
-            case "cpfcnpj":
+            case "cpfCnpj":
               isValid = this.cpfCnpjValidation(value)
             break
             case "email":
@@ -21,6 +21,10 @@ export const stepValidationHandler = {
             break
             case "phone":
               isValid = this.phoneValidation(value)
+            break
+            case "password":
+            case "passwordConfirm":
+              isValid = this.passwordValidation(value)
             break
             default: 
               console.warn("Tipo de input não identificado")
@@ -31,9 +35,10 @@ export const stepValidationHandler = {
         }
         
         console.log({ target, value, type })
-        this.setClass(parentElement, isValid)
+        this.setInvalidClass(parentElement, isValid)
+        this.setInvalidInput(origin, isValid)
         this.$emit("setFinalData", { key: name, value })
-        this.$emit("setErrors", !isValid)
+        return isValid
       }catch(error) {
         console.error("Erro ao validar o input")
         console.error(error)
@@ -43,7 +48,10 @@ export const stepValidationHandler = {
       if(!value || !value.trim("")) return false
       return true
     },
-    setClass(elem, state) {
+    setInvalidInput(origin, state) {
+      this[origin].isValid = state
+    },
+    setInvalidClass(elem, state) {
       if(!state) {
         elem.classList.add("invalid")
       }else{
@@ -52,7 +60,7 @@ export const stepValidationHandler = {
     },
     nameValidation(value) {
       try {
-        return /^[a-zA-Z\u00C0-\u017F´]+\s+[a-zA-Z\u00C0-\u017F´]{0,}$/.test(value)
+        return /^[a-zA-Z\u00C0-\u017F´]+\s+[a-zA-Z\u00C0-\u017F´]{0,}$/.test(value) //eslint-disable-line
       }catch(e) {
         console.error("Erro ao validar nome")
         console.error(e)
@@ -61,7 +69,9 @@ export const stepValidationHandler = {
     },
     socialNameValidation(value) {
       try {
-        return /^[a-zA-Z\u00C0-\u017F´]{3,}$/.test(value)
+        const isValid = /^[a-zA-Z\u00C0-\u017F´]{3,}$/.test(value) //eslint-disable-line
+        if(!isValid) return this.nameValidation(value)
+        return true
       }catch(e) {
         console.error("Erro ao validar nome")
         console.error(e)
@@ -166,7 +176,7 @@ export const stepValidationHandler = {
     },
     emailValidation(value) {
       try {
-        return /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i.test(value)
+        return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i.test(value) //eslint-disable-line
       }catch(e) {
         console.error("Erro ao validar email")
         console.error(e)
@@ -175,9 +185,37 @@ export const stepValidationHandler = {
     },
     phoneValidation(value) {
       try {
-        return /[0-9]{8,13}/.test(value)
+        return /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/.test(value) //eslint-disable-line
       }catch(e) {
         console.error("Erro ao validar email")
+        console.error(e)
+        return false
+      }
+    },
+    passwordValidation(value) {
+      try {
+        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value) //eslint-disable-line
+      }catch(e) {
+        console.error("Erro ao validar senha")
+        console.error(e)
+        return false
+      }
+    },
+    validateAllInputs() {
+      try {
+        const validationArr = []
+        Object.values(this.$refs).forEach((e, index) => {
+          validationArr.push(this.validate({target: e}, Object.keys(this.$refs)[index]))
+        })
+        
+        let isValid = true
+        validationArr.forEach(value => {
+          if(!value) isValid = false
+        })
+        
+        return isValid
+      }catch(e) {
+        console.error("Erro ao validar os inputs")
         console.error(e)
         return false
       }

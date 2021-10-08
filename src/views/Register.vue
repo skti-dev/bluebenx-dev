@@ -7,7 +7,7 @@
     <div class="register__steps my-15">
       <transition name="slide" mode="out-in">
         <keep-alive>
-          <component v-bind:is="currentView" @setErrors="setHasError" @setFinalData="setFinalData" />
+          <component v-bind:is="currentView" @setFinalData="setFinalData" />
         </keep-alive>
       </transition>
     </div>
@@ -43,7 +43,6 @@ export default {
     return {
       currentStep: 1,
       totalSteps: 7,
-      hasError: true,
       finalData: {}
     }
   },
@@ -72,24 +71,13 @@ export default {
     previousStep() {
       this.currentStep--
     },
-    setHasError(state) {
-      console.log("state: ", state)
-      this.hasError = state
-    },
     nextStep() {
       try {
         if(this.validateCurrentStep) {
-          if(this.hasError) {
-            alert("Has error (1)")
-            return false
+          if(!this.$children[this.currentStep - 1].validateAllInputs()) return false
+          if(this.currentStep === 6) {
+            if(!this.$children[this.currentStep - 1].match) return false
           }
-
-          if(this.$children[this.currentStep - 1].hasEmptyInputs()) {
-            alert("Has empty inputs (2)")
-            return false
-          }
-
-          this.hasError = true
         }
         this.currentStep < this.totalSteps ? this.currentStep++ : false
       }catch(e) {

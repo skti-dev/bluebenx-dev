@@ -9,13 +9,30 @@
       <p class="text--bold" v-text="`Primeiramente, como você gostaria de ser chamado?`"></p>
       <div class="v__field">
         <label for="social-name" @click="inputFocus" v-text="`Nome social`"></label>
-        <input type="text" vType="name" name="social-name" placeholder="Digite o seu nome social" @focus="inputFocus" @blur="inputBlur($event), validate($event, 'socialname')" v-model="socialName" />
-        <!-- <span class="message--invalid text--error" v-if="!user.isValid" v-text="`Usuário inválido`"></span> -->
+        <input 
+          type="text"
+          name="social-name"
+          placeholder="Digite o seu nome social" 
+          @focus="inputFocus" 
+          @blur="inputBlur($event), validate($event, socialName.category)" 
+          v-model="socialName.value"
+          :ref="socialName.category" 
+        />
+        <span class="message--invalid text--error" v-if="!socialName.isValid" v-text="`Nome social inválido`"></span>
       </div>
-      <p class="text--bold" v-text="`Agora precisamos saber qual é seu número de CPF ou CNPJ`"></p>
+      <p class="text--bold mt-30" v-text="`Agora precisamos saber qual é seu número de CPF ou CNPJ`"></p>
       <div class="v__field">
         <label for="cpf-cnpj" @click="inputFocus" v-text="`CPF/CNPJ`"></label>
-        <input type="text" vType="cpfcnpj" name="cpf-cnpj" placeholder="CPF ou CNPJ" @focus="inputFocus" @blur="inputBlur($event), validate($event, 'cpfcnpj')" v-model="cpfCnpj" />
+        <input 
+          type="text" 
+          name="cpf-cnpj" 
+          placeholder="CPF ou CNPJ" 
+          @focus="inputFocus" 
+          @blur="inputBlur($event), validate($event, cpfCnpj.category)" 
+          v-model="cpfCnpj.value"
+          :ref="cpfCnpj.category"
+        />
+        <span class="message--invalid text--error" v-if="!cpfCnpj.isValid" v-text="`CPF/CNPJ inválido`"></span>
       </div>
     </div>
   </div>
@@ -28,16 +45,18 @@ import { stepValidationHandler } from "@/mixins/stepValidationHandler"
 export default {
   data() {
     return {
-      socialName: "",
-      cpfCnpj: ""
+      socialName: {
+        category: 'socialName',
+        value: '',
+        isValid: true
+      },
+      cpfCnpj: {
+        category: 'cpfCnpj',
+        value: '',
+        isValid: true
+      }
     }
   },
-  mixins: [inputFieldHandler, stepValidationHandler],
-  methods: {
-    hasEmptyInputs() {
-      if(!this.socialName || !this.cpfCnpj) return true
-      return false
-    }
-  }
+  mixins: [inputFieldHandler, stepValidationHandler]
 }
 </script>
