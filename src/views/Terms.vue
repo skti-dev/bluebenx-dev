@@ -1,6 +1,6 @@
 <template>
-  <section class="terms" :class="{'is-loading' : pendingRequest}">
-    <div class="terms__header">
+  <section class="terms max-width" :class="{'is-loading' : pendingRequest}">
+    <div class="step-back__header">
       <fa-icon :icon="['fas', 'chevron-left']" @click="$router.push({ name: 'register-welcome' })" />
       <span class="text--bold text--center"> Termos e condições </span>
     </div>

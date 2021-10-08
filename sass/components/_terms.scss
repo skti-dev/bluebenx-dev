@@ -8,13 +8,3 @@
   background-color: $lighter-blue;
   padding: $spacing;
 }
-
-.terms__header {
-  @include flex-center;
-  color: $dark-blue;
-  position: relative;
-  svg {
-    position: absolute;
-    left: 0;
-  }
-}

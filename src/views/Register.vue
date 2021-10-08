@@ -1,5 +1,5 @@
 <template>
-  <section class="register">
+  <section class="register max-width">
     <div class="register__step-count">
       <fa-icon :icon="['fas', 'chevron-left']" @click="returnToTerms" />
       <span class="text--bold" v-text="`Passo ${currentStep} de ${totalSteps}`"></span>
@@ -58,6 +58,7 @@ export default {
         case 1:
         case 2:
         case 3:
+        case 5:
         case 6:
         return true
         default:

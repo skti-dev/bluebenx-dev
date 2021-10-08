@@ -7,6 +7,9 @@ export const stepValidationHandler = {
         let isValid = this.isEmpty(value)
         if(isValid) {
           switch(origin) {
+            case "state":
+            case "address":
+            case "city":
             case "socialName":
               isValid = this.socialNameValidation(value)
             break
@@ -26,6 +29,12 @@ export const stepValidationHandler = {
             case "passwordConfirm":
               isValid = this.passwordValidation(value)
             break
+            case "number":
+              isValid = this.numberValidation(value)
+            break
+            case "cep":
+              isValid = this.cepValidation(value)
+            break;
             default: 
               console.warn("Tipo de input não identificado")
               console.warn(origin)
@@ -60,7 +69,7 @@ export const stepValidationHandler = {
     },
     nameValidation(value) {
       try {
-        return /^[a-zA-Z\u00C0-\u017F´]+\s+[a-zA-Z\u00C0-\u017F´]{0,}$/.test(value) //eslint-disable-line
+        return /[A-Za-z\u00C0-\u017F]* [A-Za-z\u00C0-\u017F]*/.test(value) //eslint-disable-line
       }catch(e) {
         console.error("Erro ao validar nome")
         console.error(e)
@@ -69,7 +78,7 @@ export const stepValidationHandler = {
     },
     socialNameValidation(value) {
       try {
-        const isValid = /^[a-zA-Z\u00C0-\u017F´]{3,}$/.test(value) //eslint-disable-line
+        const isValid = /^[a-zA-Z\u00C0-\u017F´]{2,}$/.test(value) //eslint-disable-line
         if(!isValid) return this.nameValidation(value)
         return true
       }catch(e) {
@@ -197,6 +206,24 @@ export const stepValidationHandler = {
         return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value) //eslint-disable-line
       }catch(e) {
         console.error("Erro ao validar senha")
+        console.error(e)
+        return false
+      }
+    },
+    numberValidation(value) {
+      try {
+        return /^[a-zA-Z0-9_.-\u00C0-\u017F\s]*$/.test(value) //eslint-disable-line
+      }catch(e) {
+        console.error("Erro ao validar número")
+        console.error(e)
+        return false
+      }
+    },
+    cepValidation(value) {
+      try {
+        return /^([\d]{2})\.*([\d]{3})-*([\d]{3})/.test(value) //eslint-disable-line
+      }catch(e) {
+        console.error("Erro ao validar CEP")
         console.error(e)
         return false
       }

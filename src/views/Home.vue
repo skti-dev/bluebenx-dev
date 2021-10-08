@@ -1,8 +1,8 @@
 <template>
-  <section class="home">
+  <section class="home max-width">
     <div class="home__header">
       <div class="home__title">
-        <img class="mr-10" src="../assets/images/logo-bb.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
+        <img class="mr-10" src="../assets/images/logo-bb.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul." @click="$router.push({ name: 'login' })">
         <h3 v-text="`Olá, {{ socialName }}`"></h3>
       </div>
       <fa-icon class="mr-10" :icon="['fas', 'bell']" />

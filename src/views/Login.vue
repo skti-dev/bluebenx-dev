@@ -1,5 +1,5 @@
 <template>
-  <section class="login">
+  <section class="login max-width">
     <div class="login__title my-40">
       <img class="mr-10" src="../assets/images/logo-bb.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
       <h1 v-text="`Olá, seja bem-vindo!`"></h1>

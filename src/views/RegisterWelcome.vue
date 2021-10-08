@@ -1,5 +1,5 @@
 <template>
-  <section class="register-welcome">
+  <section class="register-welcome max-width">
     <div class="register-welcome__title mt-10">
       <img src="../assets/images/logo-bb-blue.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
       <h1 v-text="`Cadastro conta digital`" class="ml-5"></h1>

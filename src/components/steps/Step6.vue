@@ -30,7 +30,7 @@
         />
         <span class="message--invalid text--error" v-if="!passwordConfirm.isValid" v-text="`Senha inválida`"></span>
       </div>
-      <p v-if="!match" v-text="`As senhas não conferem`"></p>
+      <p v-if="!match" class="text--error mt-30" v-text="`As senhas não conferem`"></p>
     </div>
   </div>
 </template>
