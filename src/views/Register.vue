@@ -57,6 +57,7 @@ export default {
       switch (this.currentStep) {
         case 1:
         case 2:
+        case 3:
         case 6:
         return true
         default:
@@ -74,9 +75,13 @@ export default {
     nextStep() {
       try {
         if(this.validateCurrentStep) {
-          if(!this.$children[this.currentStep - 1].validateAllInputs()) return false
-          if(this.currentStep === 6) {
-            if(!this.$children[this.currentStep - 1].match) return false
+          if(this.currentStep === 3) {
+            if(!this.$children[this.currentStep - 1].verifyFinalData()) return false
+          }else{
+            if(!this.$children[this.currentStep - 1].validateAllInputs()) return false
+            if(this.currentStep === 6) {
+              if(!this.$children[this.currentStep - 1].match) return false
+            }
           }
         }
         this.currentStep < this.totalSteps ? this.currentStep++ : false
