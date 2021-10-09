@@ -6,29 +6,29 @@
       <p v-text="`Dados Pessoais`"></p>
       <div class="v__field active disabled">
         <label for="name" v-text="`Nome`"></label>
-        <input type="text" name="name" v-model="allInputs.name" :disabled="isDisabled" />
+        <input type="text" name="name" v-model="allInputs.name" :disabled="isDisabled" autocomplete="off" />
       </div>
       <div class="v__field active disabled">
         <label for="cpf" v-text="`CPF`"></label>
-        <input type="text" name="cpf" v-model="allInputs.cpf" :disabled="isDisabled" />
+        <input type="text" name="cpf" v-model="allInputs.cpf" :disabled="isDisabled" autocomplete="off" />
       </div>
       <div class="v__field active disabled">
         <label for="birth-date" v-text="`Data de Nascimento`"></label>
-        <input type="text" name="birth-date" v-model="allInputs.birthDate" :disabled="isDisabled" />
+        <input type="text" name="birth-date" v-model="allInputs.birthDate" :disabled="isDisabled" autocomplete="off" />
       </div>
       <div class="v__field active disabled">
         <label for="sex" v-text="`Sexo`"></label>
-        <input type="text" name="sex" v-model="allInputs.sex" :disabled="isDisabled" />
+        <input type="text" name="sex" v-model="allInputs.sex" :disabled="isDisabled" autocomplete="off" />
       </div>
       <p class="text--bold my-15" v-text="`Agora dar um check nas filiações`"></p>
       <p v-text="`Filiação`"></p>
       <div class="v__field active disabled">
         <label for="mother" v-text="`Mãe`"></label>
-        <input type="text" name="mother" v-model="allInputs.mother" :disabled="isDisabled" />
+        <input type="text" name="mother" v-model="allInputs.mother" :disabled="isDisabled" autocomplete="off" />
       </div>
       <div class="v__field active disabled">
         <label for="father" v-text="`Pai`"></label>
-        <input type="text" name="father" v-model="allInputs.father" :disabled="isDisabled" />
+        <input type="text" name="father" v-model="allInputs.father" :disabled="isDisabled" autocomplete="off" />
       </div>
       <p class="text--bold my-15" v-text="`Seu endereço está correto?`"></p>
       <div class="v__field active" :class="{'disabled' : isDisabled}">
@@ -40,7 +40,8 @@
           :disabled="isDisabled" 
           @focus="inputFocus" 
           @blur="inputBlur($event), validate($event, cep.category)"
-          :ref="cep.category" 
+          :ref="cep.category"
+          autocomplete="off"
         />
         <!-- <span class="message--invalid text--error" v-if="!cep.isValid" v-text="`CEP inválido`"></span> -->
       </div>
@@ -54,7 +55,8 @@
           :disabled="isDisabled" 
           @focus="inputFocus" 
           @blur="inputBlur($event), validate($event, address.category)"
-          :ref="address.category" 
+          :ref="address.category"
+          autocomplete="off"
         />
         <!-- <span class="message--invalid text--error" v-if="!address.isValid" v-text="`Endereço inválido`"></span> -->
       </div>
@@ -68,7 +70,8 @@
           :disabled="isDisabled" 
           @focus="inputFocus" 
           @blur="inputBlur($event), validate($event, number.category)"
-          :ref="number.category" 
+          :ref="number.category"
+          autocomplete="off"
         />
         <!-- <span class="message--invalid text--error" v-if="!number.isValid" v-text="`Número inválido`"></span> -->
       </div>
@@ -83,7 +86,8 @@
             :disabled="isDisabled" 
             @focus="inputFocus" 
             @blur="inputBlur($event), validate($event, city.category)"
-            :ref="city.category" 
+            :ref="city.category"
+            autocomplete="off"
           />
           <!-- <span class="message--invalid text--error" v-if="!city.isValid" v-text="`Cidade inválida`"></span> -->
         </div>
@@ -96,7 +100,8 @@
             :disabled="isDisabled" 
             @focus="inputFocus" 
             @blur="inputBlur($event), validate($event, state.category)"
-            :ref="state.category" 
+            :ref="state.category"
+            autocomplete="off"
           />
           <!-- <span class="message--invalid text--error" v-if="!state.isValid" v-text="`Estado inválido`"></span> -->
         </div>

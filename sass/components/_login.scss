@@ -3,22 +3,17 @@
   justify-content: flex-start;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   font-size: 1rem;
-  background-image: url("../images/bg-login.jpg");
-  background-size: 100% 115%;
+  background-image: url("../images/img-login.png");
+  background-repeat: no-repeat;
+  background-color: $primary-white;
 }
 
-.login__title {
-  @include flex-center;
-  font-size: .9rem;
-  h1 {
-    color: $secondary-font-color;
-    font-size: 1.1em;
-    font-weight: normal;
-  }
+.login__img {
+  width: 100%;
   img {
-    width: 40px;
+    width: 100%;
   }
 }
 
@@ -26,16 +21,20 @@
   width: 90%;
   @include flex-center;
   flex-direction: column;
+  background-color: $primary-white;
   color: $secondary-font-color;
+  padding: 30px;
   font-size: 1rem;
+  margin-top: -30px;
   fieldset {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     border: unset;
-    .v__field:nth-child(1) {
-      margin-bottom: 35px;
+    legend {
+      color: $primary-font-color;
+      font-size: 1.2em;
     }
   }
   button {
@@ -46,22 +45,17 @@
 
 .login__password-reset {
   font-size: .9em;
-  color: $secondary-font-color;
+  color: $primary-font-color;
+  align-self: flex-start;
   &:hover, &:active {
     text-decoration: underline;
   }
 }
 
 .login__footer {
-  width: 70%;
-  flex: 1;
   @include flex-center("vertical");
-  flex-direction: column;
-  justify-content: flex-end;
-  a {
-    width: 100%;
+  p {
+    margin-right: 5px;
   }
-  button {
-    width: 100%;
-  }
+  margin-bottom: 40px;
 }

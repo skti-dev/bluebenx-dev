@@ -1,7 +1,7 @@
 <template>
   <section class="support max-width">
     <div class="step-back__header">
-      <fa-icon :icon="['fas', 'chevron-left']" @click="$router.push({ name: 'home' })" />
+      <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click" @click="$router.push({ name: 'home' })" />
       <span class="text--bold" v-text="`Suporte`"></span>
     </div>
     <h1 class="support__title text--center my-30" v-text="`Precisa de ajuda?`"></h1>

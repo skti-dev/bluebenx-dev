@@ -1,7 +1,7 @@
 <template>
   <section class="register max-width">
     <div class="register__step-count">
-      <fa-icon :icon="['fas', 'chevron-left']" @click="returnToTerms" />
+      <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click" @click="returnToTerms" />
       <span class="text--bold" v-text="`Passo ${currentStep} de ${totalSteps}`"></span>
     </div>
     <div class="register__steps my-15">

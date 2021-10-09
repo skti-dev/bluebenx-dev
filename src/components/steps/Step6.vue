@@ -13,6 +13,7 @@
           @focus="inputFocus" 
           @blur="inputBlur($event), validate($event, password.category)"
           :ref="password.category"
+          autocomplete="off"
         />
         <span class="message--invalid text--error" v-if="!password.isValid" v-text="`Senha inválida`"></span>
       </div>
@@ -27,6 +28,7 @@
           @focus="inputFocus" 
           @blur="inputBlur($event), validate($event, passwordConfirm.category)"
           :ref="passwordConfirm.category" 
+          autocomplete="off"
         />
         <span class="message--invalid text--error" v-if="!passwordConfirm.isValid" v-text="`Senha inválida`"></span>
       </div>

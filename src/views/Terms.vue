@@ -1,7 +1,7 @@
 <template>
   <section class="terms max-width" :class="{'is-loading' : pendingRequest}">
     <div class="step-back__header">
-      <fa-icon :icon="['fas', 'chevron-left']" @click="$router.push({ name: 'register-welcome' })" />
+      <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click" @click="$router.push({ name: 'register-welcome' })" />
       <span class="text--bold text--center"> Termos e condições </span>
     </div>
     <div class="terms__content mt-30">
@@ -16,7 +16,7 @@
 
         Fusce at dictum neque. Donec aliquet ante et laoreet vehicula. Ut non suscipit libero. Sed faucibus scelerisque lacus, pharetra dapibus elit. Fusce gravida ex at mi ullamcorper, sed volutpat tortor interdum. Proin sodales tincidunt felis, in lobortis massa maximus at. Praesent a pulvinar magna, a facilisis velit. Sed in urna vel est pellentesque molestie. In blandit fringilla maximus. Duis justo lectus, interdum non augue sit amet, egestas lacinia tellus. Aenean mattis orci id nunc pellentesque condimentum.
       </p>
-      <button class="btn default-blue w-100 mt-30" v-text="`Aceitar`" @click="accept"></button>
+      <button class="btn default-blue w-100 my-30" v-text="`Aceitar`" @click="accept"></button>
     </div>
     <transition name="slide">
       <Loading v-if="pendingRequest" mode="out-in" />

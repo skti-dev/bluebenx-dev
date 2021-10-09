@@ -1,30 +1,28 @@
 <template>
   <section class="login max-width">
-    <div class="login__title my-40">
-      <img class="mr-10" src="../assets/images/logo-bb.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
-      <h1 v-text="`Olá, seja bem-vindo!`"></h1>
+    <div class="login__img">
+      <img src="../assets/images/img-login.png" alt="">
     </div>
-    <form action="#" method="POST" @submit.prevent class="login__form mb-30">
+    <form action="#" method="POST" @submit.prevent class="login__form mb-30 box-shadow">
       <fieldset>
-        <div class="v__field white-border" :class="{'invalid' : !user.isValid}">
+        <legend v-text="`Login`" class="text--bold mb-30"></legend>
+        <div class="v__field mb-30" :class="{'invalid' : !user.isValid}">
           <label for="user" @click="inputFocus" v-text="`Usuário`"></label>
-          <input type="text" name="user" placeholder="Digite o seu nome de usuário" @focus="inputFocus" @blur="inputBlur" v-model="user.message" required />
+          <input type="text" name="user" placeholder="Digite o seu nome de usuário" @focus="inputFocus" @blur="inputBlur" v-model="user.message" autocomplete="off" required />
           <span class="message--invalid text--error" v-if="!user.isValid" v-text="`Usuário inválido`"></span>
         </div>
-        <div class="v__field white-border" :class="{'invalid' : !password.isValid}">
+        <div class="v__field mb-30" :class="{'invalid' : !password.isValid}">
           <label for="password" @click="inputFocus" v-text="`Senha`"></label>
-          <input type="password" name="password" placeholder="Digite a sua senha" @focus="inputFocus" @blur="inputBlur" v-model="password.message" required />
+          <input type="password" name="password" placeholder="Digite a sua senha" @focus="inputFocus" @blur="inputBlur" v-model="password.message" autocomplete="off" required />
           <span class="message--invalid text--error" v-if="!password.isValid" v-text="`Senha inválida`"></span>
         </div>
       </fieldset>
-      <button class="btn white box-shadow mt-45" v-text="`Acessar`" @click="validateLogin"></button>
+      <p class="login__password-reset"> <a href="#" v-text="`Esqueci minha senha`"></a> </p>
+      <button class="btn default-blue box-shadow mt-30" v-text="`Acessar`" @click="validateLogin"></button>
     </form>
-    <p class="login__password-reset"> <a href="#" v-text="`Esqueci minha senha`"></a> </p>
     <div class="login__footer mb-40">
       <p v-text="`Ainda não possui um cadastro?`"></p>
-      <router-link to="/register-welcome" class="mt-35">
-        <button class="btn default-blue box-shadow" v-text="`Cadastrar`"></button> 
-      </router-link>
+      <router-link to="/register-welcome" class="text--default-blue" v-text="`Acesse aqui`"></router-link>
     </div>
   </section>
 </template>
