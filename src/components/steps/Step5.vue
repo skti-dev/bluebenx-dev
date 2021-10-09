@@ -41,6 +41,7 @@
           @focus="inputFocus" 
           @blur="inputBlur($event), validate($event, cep.category)"
           :ref="cep.category"
+          v-mask="`#####-###`"
           autocomplete="off"
         />
         <!-- <span class="message--invalid text--error" v-if="!cep.isValid" v-text="`CEP inválido`"></span> -->

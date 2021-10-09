@@ -20,7 +20,7 @@
       <p class="login__password-reset"> <a href="#" v-text="`Esqueci minha senha`"></a> </p>
       <button class="btn default-blue box-shadow mt-30" v-text="`Acessar`" @click="validateLogin"></button>
     </form>
-    <div class="login__footer mb-40">
+    <div class="login__footer ml-10 mr-10 mb-40">
       <p v-text="`Ainda não possui um cadastro?`"></p>
       <router-link to="/register-welcome" class="text--default-blue" v-text="`Acesse aqui`"></router-link>
     </div>

@@ -33,10 +33,13 @@
 
 
 .home__footer--aux {
-  height: 95px
+  margin-top: -5px;
+  height: 35px;
+  background: inherit;
+  width: 100%;
 }
 .home__footer {
-  position: fixed;
+  position: sticky;
   bottom: 0;
   font-size: 1rem;
   width: 100%;

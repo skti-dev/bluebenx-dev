@@ -29,6 +29,8 @@
           name="cpf-cnpj" 
           placeholder="CPF ou CNPJ" 
           autocomplete="off"
+          v-mask="dynamicMask"
+          @input="checkMask"
           @focus="inputFocus" 
           @blur="inputBlur($event), validate($event, cpfCnpj.category)" 
           v-model="cpfCnpj.value"
@@ -56,9 +58,15 @@ export default {
         category: 'cpfCnpj',
         value: '',
         isValid: true
-      }
+      },
+      dynamicMask: "###.###.###.##"
     }
   },
-  mixins: [inputFieldHandler, stepValidationHandler]
+  mixins: [inputFieldHandler, stepValidationHandler],
+  methods: {
+    checkMask() {
+      this.dynamicMask = this.cpfCnpj.value.length > 14 ? "##.###.###/####-##" : "###.###.###.##"
+    }
+  }
 }
 </script>

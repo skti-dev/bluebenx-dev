@@ -24,10 +24,12 @@
           name="phone"
           placeholder="Digite o seu número de telefone" 
           autocomplete="off"
+          @input="checkMask"
           @focus="inputFocus"
           @blur="inputBlur($event), validate($event, phone.category)" 
           v-model="phone.value"
           :ref="phone.category"
+          v-mask="dynamicMask"
         />
         <span class="message--invalid text--error" v-if="!phone.isValid" v-text="`Telefone inválido`"></span>
       </div>
@@ -51,9 +53,15 @@ export default {
         category: 'phone',
         value: '',
         isValid: true
-      }
+      },
+      dynamicMask: "+## ## #####-####"
     }
   },
-  mixins: [inputFieldHandler, stepValidationHandler]
+  mixins: [inputFieldHandler, stepValidationHandler],
+  methods: {
+    checkMask() {
+      this.dynamicMask = this.phone.value.length > 16 ? `+## ## #####-####` : `+## ## ####-####`
+    }
+  }
 }
 </script>

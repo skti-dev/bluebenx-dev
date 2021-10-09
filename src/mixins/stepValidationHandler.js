@@ -89,7 +89,7 @@ export const stepValidationHandler = {
     },
     cpfCnpjValidation(value) {
       try {
-        if (value.length == 11) {
+        if (value.length == 14) {
           let cpf = value.trim()
           cpf = cpf.replace(/\./g, '')
           cpf = cpf.replace('-', '')
@@ -123,7 +123,7 @@ export const stepValidationHandler = {
           
           if (v2 != cpf[10]) return false
           return true; 
-        } else if (value.length == 14) {
+        } else if (value.length == 17) {
           let cnpj = value.trim()
           cnpj = cnpj.replace(/\./g, '')
           cnpj = cnpj.replace('-', '')

@@ -5,13 +5,13 @@
   width: 100%;
   min-height: 100%;
   font-size: 1rem;
-  background-image: url("../images/img-login.png");
-  background-repeat: no-repeat;
   background-color: $primary-white;
 }
 
 .login__img {
+  @include flex-center;
   width: 100%;
+  max-height: 450px;
   img {
     width: 100%;
   }
