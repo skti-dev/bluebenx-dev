@@ -1,9 +1,9 @@
 <template>
   <section class="terms max-width" :class="{'is-loading' : pendingRequest}">
-    <div class="step-back__header">
+    <header class="step-back__header">
       <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click" @click="$router.push({ name: 'register-welcome' })" />
       <span class="text--bold text--center"> Termos e condições </span>
-    </div>
+    </header>
     <div class="terms__content mt-30">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum, urna eu ornare interdum, felis metus vulputate dui, eget accumsan nulla dolor nec purus. Cras posuere, purus et vestibulum consequat, leo purus malesuada mauris, vitae eleifend dolor nunc eget velit. Nullam massa neque, tristique nec nunc quis, mollis euismod magna. Etiam dapibus nec magna ut condimentum. Donec auctor lacus in tincidunt blandit. Nam ac nibh nulla. Suspendisse venenatis hendrerit iaculis. Mauris ultricies tristique pharetra. Praesent pretium enim lectus, eget consequat risus volutpat id. Suspendisse efficitur at elit at venenatis. Duis eu quam vel eros dignissim congue. Nullam a aliquet quam. Praesent sed risus et metus tincidunt aliquet in a massa.

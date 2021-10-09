@@ -1,9 +1,9 @@
 <template>
   <section class="support max-width">
-    <div class="step-back__header">
+    <header class="step-back__header">
       <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click" @click="$router.push({ name: 'home' })" />
       <span class="text--bold" v-text="`Suporte`"></span>
-    </div>
+    </header>
     <h1 class="support__title text--center my-30" v-text="`Precisa de ajuda?`"></h1>
     <div class="support__image mb-30">
       <img src="../assets/images/support.svg" alt="">

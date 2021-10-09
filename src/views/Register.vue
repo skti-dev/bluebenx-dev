@@ -1,9 +1,17 @@
 <template>
   <section class="register max-width">
-    <div class="register__step-count">
-      <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click" @click="returnToTerms" />
-      <span class="text--bold" v-text="`Passo ${currentStep} de ${totalSteps}`"></span>
-    </div>
+    <header class="register__header">
+      <div class="register__title">
+        <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click text--default-blue" @click="returnToTerms" />
+        <h1> Cadastro Conta Digital </h1>
+      </div>
+      <div class="register__step-count">
+        <span class="text--bold" v-text="`Passo ${currentStep} de ${totalSteps}`"></span>
+        <div class="progress__container mt-10">
+          <div class="progress__bar" :style="`width: ${widthBar}`"></div>
+        </div>
+      </div>
+    </header>
     <div class="register__steps my-15">
       <transition name="slide" mode="out-in">
         <keep-alive>
@@ -11,7 +19,7 @@
         </keep-alive>
       </transition>
     </div>
-    <div class="register__footer" :class="{'single-btn' : !hasBackButton}" v-if="currentStep != 7">
+    <footer class="register__footer" :class="{'single-btn' : !hasBackButton}" v-if="currentStep != 7">
       <div class="step__selection" v-if="hasBackButton">
         <span class="icon__circle white box-shadow" @click="previousStep">
           <fa-icon :icon="['fas', 'arrow-left']" />
@@ -24,7 +32,7 @@
           <fa-icon :icon="['fas', 'arrow-right']" />
         </span>
       </div>
-    </div>
+    </footer>
   </section>
 </template>
 
@@ -64,6 +72,12 @@ export default {
         default:
         return false
       }
+    },
+    widthBar() {
+      const totalPercentage = 100
+      const fullValue = this.totalSteps
+      const partialValue = this.currentStep
+      return `${((totalPercentage * partialValue) / fullValue).toFixed(2)}%`
     }
   },
   methods: {

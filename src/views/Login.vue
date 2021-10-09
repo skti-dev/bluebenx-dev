@@ -6,16 +6,34 @@
     <form action="#" method="POST" @submit.prevent class="login__form mb-30 box-shadow">
       <fieldset>
         <legend v-text="`Login`" class="text--bold mb-30"></legend>
-        <div class="v__field mb-30" :class="{'invalid' : !user.isValid}">
-          <label for="user" @click="inputFocus" v-text="`Usuário`"></label>
-          <input type="text" name="user" placeholder="Digite o seu nome de usuário" @focus="inputFocus" @blur="inputBlur" v-model="user.message" autocomplete="off" required />
-          <span class="message--invalid text--error" v-if="!user.isValid" v-text="`Usuário inválido`"></span>
-        </div>
-        <div class="v__field mb-30" :class="{'invalid' : !password.isValid}">
-          <label for="password" @click="inputFocus" v-text="`Senha`"></label>
-          <input type="password" name="password" placeholder="Digite a sua senha" @focus="inputFocus" @blur="inputBlur" v-model="password.message" autocomplete="off" required />
-          <span class="message--invalid text--error" v-if="!password.isValid" v-text="`Senha inválida`"></span>
-        </div>
+        <InputField 
+          :customClass="`mb-30 ${!user.isValid ? 'invalid' : ''}`"
+          labelText="Usuário"
+          inputType="text"
+          inputRef="user"
+          inputName="user"
+          :inputRequired="true"
+          inputPlaceholder="Digite o seu nome de usuário"
+          :showError="!user.isValid"
+          errorMessage="Usuário inválido"
+          @input-typing="setInputMessage"
+          @input-focus="inputFocus"
+          @input-blur="inputBlur"
+        />
+        <InputField 
+          :customClass="`mb-30 ${!password.isValid ? 'invalid' : ''}`"
+          labelText="Senha"
+          inputType="password"
+          inputRef="password"
+          inputName="password"
+          :inputRequired="true"
+          inputPlaceholder="Digite a sua senha"
+          :showError="!password.isValid"
+          errorMessage="Senha inválida"
+          @input-typing="setInputMessage"
+          @input-focus="inputFocus"
+          @input-blur="inputBlur"
+        />
       </fieldset>
       <p class="login__password-reset"> <a href="#" v-text="`Esqueci minha senha`"></a> </p>
       <button class="btn default-blue box-shadow mt-30" v-text="`Acessar`" @click="validateLogin"></button>
@@ -28,9 +46,11 @@
 </template>
 
 <script>
+import InputField from "@/components/input/InputField"
 import { inputFieldHandler } from "@/mixins/inputFieldHandler"
 
 export default {
+  components: { InputField },
   mixins: [inputFieldHandler],
   data() {
     return {
@@ -45,6 +65,17 @@ export default {
     }
   },
   methods: {
+    setInputMessage(inputObj) {
+      try {
+        const { e, inputRef } = inputObj
+        const { target } = e
+        const { value } = target
+        this[inputRef].message = value
+      }catch(error) {
+        console.error("Erro ao definir o valor para o input")
+        console.error(error)
+      }
+    },
     validateInput(key) {
       if(!this[key].message || !this[key].message.trim("")) {
         this[key].isValid = false

@@ -31,15 +31,8 @@
   font-weight: normal;
 }
 
-
-.home__footer--aux {
-  margin-top: -5px;
-  height: 35px;
-  background: inherit;
-  width: 100%;
-}
 .home__footer {
-  position: sticky;
+  position: fixed;
   bottom: 0;
   font-size: 1rem;
   width: 100%;

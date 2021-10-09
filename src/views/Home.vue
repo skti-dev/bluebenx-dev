@@ -22,7 +22,6 @@
         :icon="shortcut.icon"
       />
     </div>
-    <div class="home__footer--aux"></div>
     <div class="home__footer">
       <ul>
         <li class="active">

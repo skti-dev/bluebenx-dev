@@ -33,7 +33,7 @@ body {
     border: 1px solid $color-error;
     animation: shake 1000ms cubic-bezier(.36,.07,.19,.97) both;
   }
-  background-color: #f2f2f5;
+  background-color: $light-gray;
   border-radius: 5px;
   position: relative;
   margin-bottom: 5px;
@@ -312,6 +312,10 @@ body {
 @media screen and (min-width: 550px) {
   #app {
     @include flex-center("horizontal");
-    background-color: $primary-white
+    background-color: $primary-white;
+    height: auto;
+  }
+  .home__footer {
+    position: sticky;
   }
 }
