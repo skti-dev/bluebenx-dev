@@ -7,46 +7,41 @@
     <h2 class="step__subtitle my-30" v-text="`Tudo certo? Então vamos lá!`"></h2>
     <div class="step__form">
       <p class="text--bold" v-text="`Primeiramente, como você gostaria de ser chamado?`"></p>
-      <div class="v__field">
-        <label for="social-name" @click="inputFocus" v-text="`Nome social`"></label>
-        <input 
-          type="text"
-          name="social-name"
-          placeholder="Digite o seu nome social" 
-          autocomplete="off"
-          @focus="inputFocus" 
-          @blur="inputBlur($event), validate($event, socialName.category)" 
-          v-model="socialName.value"
-          :ref="socialName.category" 
-        />
-        <span class="message--invalid text--error" v-if="!socialName.isValid" v-text="`Nome social inválido`"></span>
-      </div>
+      <InputField 
+        inputName="social-name"
+        inputType="text"
+        :inputRef="socialName.category"
+        labelText="Nome Social"
+        inputPlaceholder="Digite o seu nome social"
+        :showError="!socialName.isValid"
+        errorMessage="Nome social inválido"
+        @input-focus="inputFocus"
+        @input-blur="inputBlur($event), validate($event, socialName.category)"
+      />
       <p class="text--bold mt-30" v-text="`Agora precisamos saber qual é seu número de CPF ou CNPJ`"></p>
-      <div class="v__field">
-        <label for="cpf-cnpj" @click="inputFocus" v-text="`CPF/CNPJ`"></label>
-        <input 
-          type="text" 
-          name="cpf-cnpj" 
-          placeholder="CPF ou CNPJ" 
-          autocomplete="off"
-          v-mask="dynamicMask"
-          @input="checkMask"
-          @focus="inputFocus" 
-          @blur="inputBlur($event), validate($event, cpfCnpj.category)" 
-          v-model="cpfCnpj.value"
-          :ref="cpfCnpj.category"
-        />
-        <span class="message--invalid text--error" v-if="!cpfCnpj.isValid" v-text="`CPF/CNPJ inválido`"></span>
-      </div>
+      <InputField 
+        inputName="cpf-cnpj"
+        inputType="text"
+        :inputRef="cpfCnpj.category"
+        labelText="CPF/CNPJ"
+        inputPlaceholder="CPF ou CNPJ"
+        :showError="!cpfCnpj.isValid"
+        errorMessage="CPF/CNPJ inválido"
+        maskType="cpfCnpj"
+        @input-focus="inputFocus" 
+        @input-blur="inputBlur($event), validate($event, cpfCnpj.category)" 
+      />
     </div>
   </div>
 </template>
 
 <script>
+import InputField from "@/components/input/InputField"
 import { inputFieldHandler } from "@/mixins/inputFieldHandler"
 import { stepValidationHandler } from "@/mixins/stepValidationHandler"
 
 export default {
+  components: { InputField },
   data() {
     return {
       socialName: {

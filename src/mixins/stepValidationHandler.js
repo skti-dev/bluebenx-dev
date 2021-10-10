@@ -231,8 +231,10 @@ export const stepValidationHandler = {
     validateAllInputs() {
       try {
         const validationArr = []
-        Object.values(this.$refs).forEach((e, index) => {
-          validationArr.push(this.validate({target: e}, Object.keys(this.$refs)[index]))
+        this.$children.forEach(c => {
+          Object.values(c.$refs).forEach((e, index) => {
+            validationArr.push(this.validate({target: e}, Object.keys(c.$refs)[index]))
+          })
         })
         
         let isValid = true

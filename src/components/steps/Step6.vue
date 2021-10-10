@@ -2,46 +2,42 @@
   <div class="step">
     <h1 class="my-30" v-text="`Quase lá!`"></h1>
     <p class="mb-30" v-text="`Agora só faltam os dados finais`"></p>
-    <div class="step__form">
-      <div class="v__field">
-        <label for="password" @click="inputFocus" v-text="`Senha`"></label>
-        <input 
-          type="password" 
-          name="password" 
-          placeholder="Digite sua senha" 
-          v-model="password.value" 
-          @focus="inputFocus" 
-          @blur="inputBlur($event), validate($event, password.category)"
-          :ref="password.category"
-          autocomplete="off"
-        />
-        <span class="message--invalid text--error" v-if="!password.isValid" v-text="`Senha inválida`"></span>
-      </div>
+    <form class="step__form" autocomplete="off" action="#" method="POST" @submit.prevent>
+      <InputField 
+        inputName="password"
+        inputType="password"
+        inputPlaceholder="Digite sua senha"
+        :inputRef="password.category"
+        labelText="Senha"
+        :showError="!password.isValid"
+        errorMessage="Senha inválida"
+        @input-focus="inputFocus"
+        @input-blur="inputBlur($event), validate($event, password.category)"
+      />
       <p class="field--message my-15" v-text="`A senha deve conter: Mínimo de 8 caracteres, uma letra maiúscula, uma minúscula e um número`"></p>
-      <div class="v__field">
-        <label for="password-confirm" @click="inputFocus" v-text="`Confirmar senha`"></label>
-        <input 
-          type="password" 
-          name="password-confirm" 
-          placeholder="Confirme sua senha" 
-          v-model="passwordConfirm.value" 
-          @focus="inputFocus" 
-          @blur="inputBlur($event), validate($event, passwordConfirm.category)"
-          :ref="passwordConfirm.category" 
-          autocomplete="off"
-        />
-        <span class="message--invalid text--error" v-if="!passwordConfirm.isValid" v-text="`Senha inválida`"></span>
-      </div>
+      <InputField 
+        inputName="password-confirm"
+        inputType="password"
+        inputPlaceholder="Confirme sua senha"
+        :inputRef="passwordConfirm.category"
+        labelText="Confirmar senha"
+        :showError="!passwordConfirm.isValid"
+        errorMessage="Senha inválida"
+        @input-focus="inputFocus"
+        @input-blur="inputBlur($event), validate($event, passwordConfirm.category)"
+      />
       <p v-if="!match" class="text--error mt-30" v-text="`As senhas não conferem`"></p>
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
+import InputField from "@/components/input/InputField"
 import { inputFieldHandler } from "@/mixins/inputFieldHandler"
 import { stepValidationHandler } from "@/mixins/stepValidationHandler"
 
 export default {
+  components: { InputField },
   data() {
     return {
       password: {
