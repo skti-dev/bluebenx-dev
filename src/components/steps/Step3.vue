@@ -1,6 +1,6 @@
 <template>
   <div class="step">
-    <form class="step__form">
+    <form class="step__form" action="#" method="POST" @submit.prevent>
       <p class="text--bold mb-10"> Validação de segurança </p>
       <p class="text--bold"> Enviamos um código para o seu e-mail! </p>
       <div class="code__validation mt-30">

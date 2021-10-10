@@ -1,6 +1,6 @@
 <template>
   <div class="step">
-    <form class="step__form">
+    <form class="step__form" action="#" method="POST" @submit.prevent>
       <p class="text--bold" v-text="`{{ socialName }}, agora como próximo passo em nosso cadastro, iremos precisar de um documento pessoal com foto`"></p>
       <select name="doc-selection" v-model="selectedDoc" class="select box-shadow mt-30">
         <option value="" v-text="`Selecione o tipo de documento`"></option>

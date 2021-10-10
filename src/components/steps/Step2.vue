@@ -1,6 +1,6 @@
 <template>
   <div class="step">
-    <form class="step__form">
+    <form class="step__form" action="#" method="POST" @submit.prevent>
       <p class="text--bold" v-text="`Como medida de segurança, precisamos confirmar alguns dados`"></p>
       <InputField 
         inputName="email"
