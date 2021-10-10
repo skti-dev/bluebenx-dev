@@ -4,23 +4,27 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  background-color: blue;
+  background-image: url("../images/bg-orientation.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-y: 0;
   font-size: 1rem
 }
 
 .register-welcome__title {
-  @include flex-center;
-  color: $primary-blue;
-  img {
-    height: 45px
+  padding: 20px;
+  @include flex-center("horizontal");
+  flex-direction: column;
+  color: $primary-white;
+  font-size: 1rem;
+  h1 {
+    font-size: 2em;
   }
-}
-
-.register-welcome__image {
-  @include flex-center;
-  width: 100%;
+  h2 {
+    font-weight: normal;
+  }
   img {
-    height: 150px;
+    height: 55px
   }
 }
 

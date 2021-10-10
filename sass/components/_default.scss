@@ -189,6 +189,9 @@ body {
 .text--bold {
   font-weight: bold;
 }
+.text--white {
+  color: $primary-white
+}
 .text--default-blue {
   color: $primary-blue
 }
@@ -253,6 +256,9 @@ body {
   .mr-25 {
     margin-right: 25px;
   }
+  .mr-30 {
+    margin-right: 30px;
+  }
 
   /* Left */
   .ml-5 {
@@ -260,6 +266,9 @@ body {
   }
   .ml-10 {
     margin-left: 10px;
+  }
+  .ml-30 {
+    margin-left: 30px;
   }
 
   /* X Axis */
@@ -318,4 +327,9 @@ body {
   .home__footer {
     position: sticky;
   }
+}
+
+/* Logo and text */
+.logo {
+  @include flex-center("vertical");
 }

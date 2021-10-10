@@ -2,7 +2,7 @@
   <section class="terms max-width" :class="{'is-loading' : pendingRequest}">
     <header class="step-back__header">
       <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click" @click="$router.push({ name: 'register-welcome' })" />
-      <span class="text--bold text--center"> Termos e condições </span>
+      <span class="text--bold text--center" v-text="`Termos e condições`"></span>
     </header>
     <div class="terms__content mt-30">
       <p>
