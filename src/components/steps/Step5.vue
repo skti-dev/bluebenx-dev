@@ -2,7 +2,7 @@
   <div class="step">
     <p class="text--bold mb-10" v-text="`Seus dados foram validados com sucesso!`"></p>
     <p class="mb-30" v-text="`Agora é so dar um confere para ver se está tudo de acordo`"></p>
-    <div class="step__form">
+    <form class="step__form">
       <p v-text="`Dados Pessoais`"></p>
       <div class="v__field active disabled">
         <label for="name" v-text="`Nome`"></label>
@@ -95,7 +95,7 @@
         />
       </div>
       <button class="btn white text--default-blue box-shadow my-30 w-100" v-text="`Editar`" @click="editInfos"></button>
-    </div>
+    </form>
 
   </div>
 </template>

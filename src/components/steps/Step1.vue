@@ -5,7 +5,7 @@
       <h1 v-text="`Cadastro conta digital`" class="ml-5"></h1>
     </div>
     <h2 class="step__subtitle my-30" v-text="`Tudo certo? Então vamos lá!`"></h2>
-    <div class="step__form">
+    <form class="step__form">
       <p class="text--bold" v-text="`Primeiramente, como você gostaria de ser chamado?`"></p>
       <InputField 
         inputName="social-name"
@@ -31,7 +31,7 @@
         @input-focus="inputFocus" 
         @input-blur="inputBlur($event), validate($event, cpfCnpj.category)" 
       />
-    </div>
+    </form>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="step">
-    <div class="step__form">
+    <form class="step__form">
       <p class="text--bold mb-10"> Validação de segurança </p>
       <p class="text--bold"> Enviamos um código para o seu e-mail! </p>
       <div class="code__validation mt-30">
@@ -13,7 +13,7 @@
       <span v-if="codeTime" class="code__resend" v-text="`Reenviar código: ${codeTime}s`"></span>
       <span v-else class="code__resend cursor--click" v-text="`Reenviar código`" @click="initCodeInterval"></span>
       <p v-if="hasError" class="text--error" v-text="`Preencha o código corretamente`"></p>
-    </div>
+    </form>
   </div>
 </template>
 

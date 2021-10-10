@@ -1,6 +1,6 @@
 <template>
   <div class="step">
-    <div class="step__form">
+    <form class="step__form">
       <p class="text--bold" v-text="`Como medida de segurança, precisamos confirmar alguns dados`"></p>
       <InputField 
         inputName="email"
@@ -26,7 +26,7 @@
         @input-focus="inputFocus" 
         @input-blur="inputBlur($event), validate($event, phone.category)" 
       />
-    </div>
+    </form>
   </div>
 </template>
 
