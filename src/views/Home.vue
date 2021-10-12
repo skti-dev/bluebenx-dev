@@ -3,7 +3,7 @@
     <div class="home__header">
       <div class="home__title">
         <img class="mr-10" src="../assets/images/logo-bb-blue.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul." @click="$router.push({ name: 'login' })">
-        <h3 v-text="`Olá, ${userInfos.name}`"></h3>
+        <h3 v-text="`Olá, ${userInfos.name ? userInfos.name : 'Anônimo'}`"></h3>
       </div>
       <fa-icon class="mr-10 text--dark-blue" :icon="['fas', 'bell']" />
     </div>
