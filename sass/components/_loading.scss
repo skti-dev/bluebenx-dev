@@ -22,3 +22,19 @@
     height: 50px;
   }
 }
+
+.loader {
+  $border: 5px;
+  $dimension: 30px;
+  border: $border solid $dark-blue; 
+  border-top: $border solid $light-gray;
+  border-radius: 50%;
+  width: $dimension;
+  height: $dimension;
+  animation: spin 2500ms linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

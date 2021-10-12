@@ -52,7 +52,7 @@ export default {
     },
     setFinalData(key, value) {
       this.finalData[key] = value
-      this.$emit("setFinalData", { key: "validation-code", value: Object.values(this.finalData).join("") })
+      this.$emit("setFinalData", { key: "code", value: Object.values(this.finalData).join("") })
     },
     verifyFinalData() {
       if(Object.keys(this.finalData).length != 5) {

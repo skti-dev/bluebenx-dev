@@ -29,7 +29,8 @@
       <div class="step__selection">
         <span class="text--bold mx-10" v-text="`Próximo`"></span>
         <span class="icon__circle blue box-shadow" @click="nextStep">
-          <fa-icon :icon="['fas', 'arrow-right']" />
+          <fa-icon :icon="['fas', 'arrow-right']" v-if="!pendingRequest" />
+          <SpinLoader v-else />
         </span>
       </div>
     </footer>
@@ -37,6 +38,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
+
 import Step1 from "@/components/steps/Step1"
 import Step2 from "@/components/steps/Step2"
 import Step3 from "@/components/steps/Step3"
@@ -44,17 +47,22 @@ import Step4 from "@/components/steps/Step4"
 import Step5 from "@/components/steps/Step5"
 import Step6 from "@/components/steps/Step6"
 import Step7 from "@/components/steps/Step7"
+import SpinLoader from "@/components/loading/SpinLoader"
 
 export default {
-  components: { Step1, Step2, Step3, Step4, Step5, Step6, Step7 },
+  components: { Step1, Step2, Step3, Step4, Step5, Step6, Step7, SpinLoader },
   data() {
     return {
       currentStep: 1,
       totalSteps: 7,
-      finalData: {}
+      finalData: {},
+      pendingRequest: false
     }
   },
   computed: {
+    ...mapGetters({
+      userID: "getUserID"
+    }),
     currentView() {
       return `Step${this.currentStep}`
     },
@@ -87,7 +95,8 @@ export default {
     previousStep() {
       this.currentStep--
     },
-    nextStep() {
+    async nextStep() {
+      if(this.pendingRequest) return false
       try {
         if(this.validateCurrentStep) {
           if(this.currentStep === 3) {
@@ -98,6 +107,7 @@ export default {
               if(!this.$children[this.currentStep - 1].match) return false
             }
           }
+          if(this.currentStep != 5) await this.sendData()
         }
         this.currentStep < this.totalSteps ? this.currentStep++ : false
       }catch(e) {
@@ -108,6 +118,45 @@ export default {
     setFinalData({ key, value }) {
       this.finalData[key] = value
       console.log("Final data: ", this.finalData)
+    },
+    getDataAndURL() {
+      switch (this.currentStep) {
+        case 1: {
+          const { social_name, document } = this.finalData
+          return { url: `document-name`, data: { social_name, document } }
+        }
+        case 2: {
+          const { email, phone } = this.finalData
+          return { url: `email-phone`, data: { email, phone } }
+        }
+        case 3: {
+          const { code } = this.finalData
+          return { url: `code`, data: { code } }
+        }
+        case 6: {
+          const { password } = this.finalData
+          return { url: `password`, data: { password } } 
+        }
+        default: {
+          return { error: true }
+        }
+      }
+    },
+    async sendData() {
+      try {
+        this.pendingRequest = true
+        const { url, data, error } = this.getDataAndURL()
+        if(error) throw new Error(`Não foi possível receber os dados e a URL do step atual: ${this.currentStep}`)
+        console.log({ url, data })
+        const response = await this.$apiRequest.put(`/user/${this.userID}/${url}`, data)
+        console.log(response)
+        this.pendingRequest = false
+      }catch(e) {
+        console.error("Erro ao enviar os dados para a API")
+        console.error(e)
+        this.pendingRequest = false
+        this.$router.push({ name: "error" })
+      }
     }
   }
 }

@@ -7,7 +7,7 @@
       <fa-icon :icon="['fas', 'exclamation-circle']" class="text--default-blue mb-30" />
       <h1 class="mb-10" v-text="`Ops!`"></h1>
       <h2 v-text="`Ocorreu um erro ao buscas as informações :(`" class="mb-30"></h2>
-      <button class="btn light-gray" v-text="`Tentar novamente`" @click="$router.push({ name: 'terms' })"></button>
+      <button class="btn light-gray" v-text="`Tentar novamente`" @click="$router.push({ name: 'register-welcome' })"></button>
     </div>
   </section>
 </template>

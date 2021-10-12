@@ -3,7 +3,7 @@
     <form class="step__form" action="#" method="POST" @submit.prevent>
       <p class="text--bold" v-text="`Primeiramente, como você gostaria de ser chamado?`"></p>
       <InputField 
-        inputName="social-name"
+        inputName="social_name"
         inputType="text"
         :inputRef="socialName.category"
         labelText="Nome Social"
@@ -15,7 +15,7 @@
       />
       <p class="text--bold mt-30" v-text="`Qual o seu número de CPF ou CNPJ`"></p>
       <InputField 
-        inputName="cpf-cnpj"
+        inputName="document"
         inputType="text"
         :inputRef="cpfCnpj.category"
         labelText="CPF/CNPJ"
