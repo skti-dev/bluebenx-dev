@@ -5,14 +5,14 @@
         <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click text--default-blue" @click="returnToTerms" />
         <h1> Cadastro Conta Digital </h1>
       </div>
-      <div class="register__step-count">
+      <div class="register__step-count" :class="{'last__step' : currentStep === 7}">
         <span class="text--bold" v-text="`Passo ${currentStep} de ${totalSteps}`"></span>
         <div class="progress__container mt-10">
           <div class="progress__bar" :style="`width: ${widthBar}`"></div>
         </div>
       </div>
     </header>
-    <div class="register__steps my-15">
+    <div class="register__steps my-15" :class="{'last__step' : currentStep === 7}">
       <transition name="slide" mode="out-in">
         <keep-alive>
           <component v-bind:is="currentView" @setFinalData="setFinalData" />
@@ -21,7 +21,7 @@
     </div>
     <footer class="register__footer" :class="{'single-btn' : !hasBackButton}" v-if="currentStep != 7">
       <div class="step__selection" v-if="hasBackButton">
-        <span class="icon__circle white box-shadow" @click="previousStep">
+        <span class="icon__circle light-gray box-shadow" @click="previousStep">
           <fa-icon :icon="['fas', 'arrow-left']" />
         </span>
         <span class="text--bold mx-10" v-text="`Voltar`"></span>

@@ -5,7 +5,7 @@
   width: 100%;
   min-height: 100%;
   font-size: 1rem;
-  background-color: $primary-white;
+  background-color: $light-gray;
 }
 
 .login__img {
@@ -26,6 +26,7 @@
   padding: 30px;
   font-size: 1rem;
   margin-top: -30px;
+  border-radius: $default-border-radius;
   fieldset {
     width: 100%;
     display: flex;

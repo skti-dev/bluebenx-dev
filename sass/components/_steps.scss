@@ -45,13 +45,6 @@
   color: $primary-blue;
 }
 
-.step__image {
-  @include flex-center;
-  img {
-    height: 88px;
-  }
-}
-
 .step__buttons {
   width: 100%;
   display: flex;
@@ -79,9 +72,16 @@
   font-size: .7em;
 }
 
-.step__image {
-  @include flex-center;
-  img {
-    height: 200px;
+.last__step {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.step__content {
+  flex: 1;
+  padding: 30px;
+  h1 {
+    font-size: 2em
   }
 }

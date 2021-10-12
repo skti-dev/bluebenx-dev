@@ -1,7 +1,7 @@
 <template>
   <section class="terms max-width" :class="{'is-loading' : pendingRequest}">
     <header class="step-back__header">
-      <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click" @click="$router.push({ name: 'register-welcome' })" />
+      <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click text--dark-blue" @click="$router.push({ name: 'register-welcome' })" />
       <span class="text--bold text--center" v-text="`Termos e condições`"></span>
     </header>
     <div class="terms__content mt-30">

@@ -1,10 +1,5 @@
 <template>
   <div class="step">
-    <div class="step__title mt-10">
-      <img src="../../assets/images/logo-bb-blue.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
-      <h1 v-text="`Cadastro conta digital`" class="ml-5"></h1>
-    </div>
-    <h2 class="step__subtitle my-30" v-text="`Tudo certo? Então vamos lá!`"></h2>
     <form class="step__form" action="#" method="POST" @submit.prevent>
       <p class="text--bold" v-text="`Primeiramente, como você gostaria de ser chamado?`"></p>
       <InputField 
@@ -18,7 +13,7 @@
         @input-focus="inputFocus"
         @input-blur="inputBlur($event), validate($event, socialName.category)"
       />
-      <p class="text--bold mt-30" v-text="`Agora precisamos saber qual é seu número de CPF ou CNPJ`"></p>
+      <p class="text--bold mt-30" v-text="`Qual o seu número de CPF ou CNPJ`"></p>
       <InputField 
         inputName="cpf-cnpj"
         inputType="text"

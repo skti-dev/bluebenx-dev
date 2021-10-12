@@ -1,15 +1,12 @@
 <template>
   <section class="support max-width">
     <header class="step-back__header">
-      <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click" @click="$router.push({ name: 'home' })" />
+      <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click text--dark-blue" @click="$router.push({ name: 'home' })" />
       <span class="text--bold" v-text="`Suporte`"></span>
     </header>
-    <h1 class="support__title text--center my-30" v-text="`Precisa de ajuda?`"></h1>
-    <div class="support__image mb-30">
-      <img src="../assets/images/support.svg" alt="">
-    </div>
-    <p class="support__message text--center text--bold" v-text="`Bem-vindo ao nosso canal de suporte!`"></p>
-    <p class="support__message text--center text--bold" v-text="`Escolha por gentileza a opção abaixo na qual prefere prosseguir`"></p>
+    <h1 class="support__title mt-30 mb-20" v-text="`Precisa de ajuda?`"></h1>
+    <p class="support__message text--bold" v-text="`Bem-vindo ao nosso canal de suporte!`"></p>
+    <p class="support__message text--bold" v-text="`Escolha por gentileza a opção abaixo na qual prefere prosseguir`"></p>
     <div class="support__shortcuts mt-30">
       <Shortcut
         v-for="(shortcut, index) in shortcutsData" :key="index"

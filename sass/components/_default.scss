@@ -34,7 +34,7 @@ body {
     animation: shake 1000ms cubic-bezier(.36,.07,.19,.97) both;
   }
   background-color: $light-gray;
-  border-radius: 5px;
+  border-radius: $default-border-radius;
   position: relative;
   margin-bottom: 5px;
   label {
@@ -99,8 +99,8 @@ body {
 /* Select */
 .select {
   width: 100%;
-  background-color: $primary-white;
-  border-radius: 2.5px;
+  background-color: $light-gray;
+  border-radius: $default-border-radius;
   border: unset;
   outline: unset;
   padding: 15px;
@@ -115,7 +115,7 @@ body {
   cursor: pointer;
   min-width: 120px;
   padding: 12.5px 15px;
-  border-radius: 2.5px;
+  border-radius: $default-border-radius;
   @include flex-center;
   transition: all $default-transition-timing ease-in-out;
 }
@@ -167,6 +167,10 @@ body {
   }
   color: $primary-font-color;
 }
+.light-gray {
+  background-color: $light-gray;
+  color: $primary-blue
+}
 
 /* Box shadow */
 .box-shadow {
@@ -210,6 +214,18 @@ body {
 .text--error {
   color: $color-error;
 }
+.text--gray {
+  color: $disabled-color
+}
+.text--dark-gray {
+  color: darken($dark-gray, 15)
+}
+.text--upper {
+  text-transform: uppercase;
+}
+.text--small {
+  font-size: .8em;
+}
 
 /* Margins */
   /* Top */
@@ -238,6 +254,9 @@ body {
   }
   .mb-10 {
     margin-bottom: 10px;
+  }
+  .mb-20 {
+    margin-bottom: 20px;
   }
   .mb-30 {
     margin-bottom: 30px;
@@ -305,7 +324,6 @@ body {
 /* Header */
 .step-back__header {
   @include flex-center;
-  color: $dark-blue;
   position: relative;
   svg {
     position: absolute;
@@ -332,4 +350,12 @@ body {
 /* Logo and text */
 .logo {
   @include flex-center("vertical");
+}
+
+/* Styled Footer Content */
+.footer__content {
+  background: $primary-white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding: 20px;
 }

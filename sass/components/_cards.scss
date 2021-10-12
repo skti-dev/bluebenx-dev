@@ -8,11 +8,10 @@
 .card {
   width: 100%;
   min-height: 125px;
-  background-color: #FFF;
+  background-color: $light-gray;
   color: $primary-font-color;
   margin-bottom: 15px;
-  border-radius: 2.5px;
-  border-bottom: 4px solid $power-color;
+  border-radius: $default-border-radius;
   padding: 10px;
   font-size: 1rem;
   display: flex;
@@ -35,7 +34,6 @@
     justify-content: flex-end;
     h1 {
       font-size: 1.75em;
-      font-weight: normal;
     }
   }
 }
@@ -46,7 +44,6 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: 100px;
 }
 
 .shortcut {
@@ -54,7 +51,7 @@
   @include flex-center;
   color: $primary-font-color;
   margin-right: 10px;
-  background: $primary-white;
+  background: $light-gray;
   border-radius: 5px;
   font-size: 1rem;
   &:last-child {
@@ -79,7 +76,7 @@
   }
   &.light-blue {
     $shortcut-dimensions: 120px;
-    background: $lighter-blue;
+    background: $light-gray;
     svg {
       color: $dark-blue;
       font-size: 2em;

@@ -1,8 +1,8 @@
 <template>
-  <div class="shortcut box-shadow" :class="{'light-blue' : lightBlue}">
+  <div class="shortcut" :class="{'light-blue' : lightBlue}">
     <div class="shortcut__content">
       <fa-icon :icon="icon" />
-      <p v-text="`${title}`"></p>
+      <p v-text="`${title}`" class="text--bold"></p>
     </div>
   </div>
 </template>

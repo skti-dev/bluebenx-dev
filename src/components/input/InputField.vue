@@ -81,9 +81,9 @@
             limiter: 14
           },
           phone: {
-            initialMask: "+## ## ####-####", 
-            updatedMask: "+## ## #####-####",
-            limiter: 16
+            initialMask: "(##) ####-####", 
+            updatedMask: "(##) #####-####",
+            limiter: 14
           }
         },
         mask: ""

@@ -13,7 +13,7 @@
         <h1 v-text="`Cadastro Conta Digital`"></h1>
       </div>
     </header>
-    <div class="register-welcome__content">
+    <div class="footer__content">
       <div class="register-welcome__list">
         <p class="text--bold" v-text="`Antes de continuarmos precisamos te dar umas dicas para poupar o seu tempo e te ajudar:`"></p>
         <ul class="mb-30">
@@ -28,7 +28,6 @@
         </ul>
       </div>
       <footer class="register-welcome__footer">
-        <h3 class="text--center mb-10" v-text="`Tudo pronto? Então vamos lá`"></h3>
         <button class="btn default-blue w-100" v-text="`Prosseguir`" @click="$router.push({ name: 'terms' })"></button>
       </footer>
     </div>

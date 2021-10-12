@@ -31,15 +31,17 @@
   @include flex-center;
   flex-direction: column;
   padding: 10px 0;
+  &.last__step {
+    padding: 10px 0 0 0
+  }
 }
 .progress__container {
   width: 100%;
-  height: 4px;
+  height: 3px;
   background: $light-gray;
   .progress__bar {
-    // width: calc(100% / 7);
     height: 100%;
-    background: $dark-blue;
+    background: lighten($dark-blue, 40);
     transition: width $default-transition-timing;
   }
 }
@@ -47,6 +49,14 @@
 .register__steps {
   flex: 1;
   padding: 0 20px;
+  &.last__step {
+    padding: 0;
+    margin: 0;
+    background-image: url("../images/bg-final-page.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 0;
+  }
 }
 
 .register__footer {

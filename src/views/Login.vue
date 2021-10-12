@@ -3,7 +3,7 @@
     <div class="login__img">
       <img src="../assets/images/img-login.png" alt="">
     </div>
-    <form action="#" method="POST" @submit.prevent class="login__form mb-30 box-shadow">
+    <form action="#" method="POST" @submit.prevent class="login__form mb-30">
       <fieldset>
         <legend v-text="`Login`" class="text--bold mb-30"></legend>
         <InputField 
@@ -36,11 +36,11 @@
         />
       </fieldset>
       <p class="login__password-reset"> <a href="#" v-text="`Esqueci minha senha`"></a> </p>
-      <button class="btn default-blue box-shadow mt-30" v-text="`Acessar`" @click="validateLogin"></button>
+      <button class="btn default-blue mt-30" v-text="`Acessar`" @click="validateLogin"></button>
     </form>
     <div class="login__footer ml-10 mr-10 mb-40">
-      <p v-text="`Ainda não possui um cadastro?`"></p>
-      <router-link to="/register-welcome" class="text--default-blue" v-text="`Acesse aqui`"></router-link>
+      <p class="text--bold" v-text="`Ainda não possui um cadastro?`"></p>
+      <router-link to="/register-welcome" class="text--default-blue text--bold" v-text="`Acesse aqui`"></router-link>
     </div>
   </section>
 </template>

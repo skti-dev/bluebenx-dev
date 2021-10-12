@@ -1,7 +1,7 @@
 <template>
   <div class="step">
-    <h1 class="my-30" v-text="`Quase lá!`"></h1>
-    <p class="mb-30" v-text="`Agora só faltam os dados finais`"></p>
+    <p class="mb-10 text--bold" v-text="`Cadastro de senha`"></p>
+    <p class="mb-30 text--upper text--small" v-text="`A senha deve conter 8 caracteres com pelo menos uma letra maiúscula e um número`"></p>
     <form class="step__form" autocomplete="off" action="#" method="POST" @submit.prevent>
       <InputField 
         inputName="password"
@@ -14,7 +14,7 @@
         @input-focus="inputFocus"
         @input-blur="inputBlur($event), validate($event, password.category)"
       />
-      <p class="field--message my-15" v-text="`A senha deve conter: Mínimo de 8 caracteres, uma letra maiúscula, uma minúscula e um número`"></p>
+      <br>
       <InputField 
         inputName="password-confirm"
         inputType="password"

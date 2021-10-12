@@ -1,8 +1,8 @@
 <template>
   <div class="step">
     <form class="step__form" action="#" method="POST" @submit.prevent>
-      <p class="text--bold mb-10"> Validação de segurança </p>
-      <p class="text--bold"> Enviamos um código para o seu e-mail! </p>
+      <p class="text--bold mb-10" v-text="`Validação de segurança`"></p>
+      <p class="text--upper text--small" v-text="`Enviamos um código para o seu e-mail`"></p>
       <div class="code__validation mt-30">
         <SingleCharInput @inputData="setFinalData('code-1', $event)" />
         <SingleCharInput @inputData="setFinalData('code-2', $event)" />
@@ -10,8 +10,8 @@
         <SingleCharInput @inputData="setFinalData('code-4', $event)" />
         <SingleCharInput @inputData="setFinalData('code-5', $event)" />
       </div>
-      <span v-if="codeTime" class="code__resend" v-text="`Reenviar código: ${codeTime}s`"></span>
-      <span v-else class="code__resend cursor--click" v-text="`Reenviar código`" @click="initCodeInterval"></span>
+      <span v-if="codeTime" class="code__resend text--bold" v-text="`Reenviar código: ${codeTime}s`"></span>
+      <span v-else class="code__resend cursor--click text--bold" v-text="`Reenviar código`" @click="initCodeInterval"></span>
       <p v-if="hasError" class="text--error" v-text="`Preencha o código corretamente`"></p>
     </form>
   </div>

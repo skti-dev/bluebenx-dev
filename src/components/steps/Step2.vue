@@ -1,7 +1,7 @@
 <template>
   <div class="step">
     <form class="step__form" action="#" method="POST" @submit.prevent>
-      <p class="text--bold" v-text="`Como medida de segurança, precisamos confirmar alguns dados`"></p>
+      <p class="text--bold" v-text="`Qual seu endereço de email?`"></p>
       <InputField 
         inputName="email"
         inputType="email"
@@ -14,6 +14,7 @@
         @input-blur="inputBlur($event), validate($event, email.category)" 
       />
       <br>
+      <p class="text--bold" v-text="`Qual seu telefone?`"></p>
       <InputField 
         inputName="phone"
         inputType="text"
@@ -52,11 +53,6 @@ export default {
       dynamicMask: "+## ## #####-####"
     }
   },
-  mixins: [inputFieldHandler, stepValidationHandler],
-  methods: {
-    checkMask() {
-      this.dynamicMask = this.phone.value.length > 16 ? `+## ## #####-####` : `+## ## ####-####`
-    }
-  }
+  mixins: [inputFieldHandler, stepValidationHandler]
 }
 </script>

@@ -28,17 +28,9 @@
   }
 }
 
-.register-welcome__content {
-  background: $primary-white;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  padding: 20px;
-}
-
 .register-welcome__list ul {
   font-size: .9em
 }
-
 
 .register-welcome__footer {
   @include flex-center;

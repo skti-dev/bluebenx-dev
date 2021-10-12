@@ -2,10 +2,10 @@
   <section class="home max-width">
     <div class="home__header">
       <div class="home__title">
-        <img class="mr-10" src="../assets/images/logo-bb.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul." @click="$router.push({ name: 'login' })">
+        <img class="mr-10" src="../assets/images/logo-bb-blue.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul." @click="$router.push({ name: 'login' })">
         <h3 v-text="`Olá, {{ socialName }}`"></h3>
       </div>
-      <fa-icon class="mr-10" :icon="['fas', 'bell']" />
+      <fa-icon class="mr-10 text--dark-blue" :icon="['fas', 'bell']" />
     </div>
     <div class="cards">
       <Card 
@@ -14,7 +14,7 @@
         :value="card.value"
       />
     </div>
-    <h3 class="home__subtitle" v-text="`Atalhos`"></h3>
+    <h2 class="home__subtitle" v-text="`Serviços`"></h2>
     <div class="shortcuts">
       <Shortcut 
         v-for="(shortcut, index) in shortcutsData" :key="index"
@@ -33,7 +33,7 @@
           <span v-text="`Investir`"></span>
         </li>
         <li @click="$router.push({ name: 'support' })">
-          <fa-icon :icon="['fas', 'info-circle']" />
+          <fa-icon :icon="['fas', 'question-circle']" />
           <span v-text="`Suporte`"></span>
         </li>
         <li>
