@@ -1,3 +1,4 @@
+import Vue from "vue"
 import axios from "axios"
 
 const apiRequest = axios.create({
@@ -5,7 +6,7 @@ const apiRequest = axios.create({
   timeout: 3000
 })
 
-export default apiRequest
+Vue.$apiRequest = apiRequest
 
 /* 
   5 rotas:
