@@ -3,7 +3,7 @@ export const stepValidationHandler = {
     validate(e, origin) {
       try {
         const { target } = e
-        const { value, type, name, parentElement } = target
+        const { value, name, parentElement } = target
         let isValid = this.isEmpty(value)
         if(isValid) {
           switch(origin) {
@@ -43,7 +43,6 @@ export const stepValidationHandler = {
           }
         }
         
-        console.log({ target, value, type })
         this.setInvalidClass(parentElement, isValid)
         this.setInvalidInput(origin, isValid)
         this.$emit("setFinalData", { key: name, value })

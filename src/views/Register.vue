@@ -49,6 +49,8 @@ import Step6 from "@/components/steps/Step6"
 import Step7 from "@/components/steps/Step7"
 import SpinLoader from "@/components/loading/SpinLoader"
 
+import { textFormats } from "@/mixins/textFormats"
+
 export default {
   components: { Step1, Step2, Step3, Step4, Step5, Step6, Step7, SpinLoader },
   data() {
@@ -88,6 +90,7 @@ export default {
       return `${((totalPercentage * partialValue) / fullValue).toFixed(2)}%`
     }
   },
+  mixins: [textFormats],
   methods: {
     returnToTerms() {
       this.$router.push({ name: "terms" })
@@ -117,7 +120,6 @@ export default {
     },
     setFinalData({ key, value }) {
       this.finalData[key] = value
-      console.log("Final data: ", this.finalData)
     },
     getDataAndURL() {
       switch (this.currentStep) {
@@ -147,15 +149,28 @@ export default {
         this.pendingRequest = true
         const { url, data, error } = this.getDataAndURL()
         if(error) throw new Error(`Não foi possível receber os dados e a URL do step atual: ${this.currentStep}`)
-        console.log({ url, data })
         const response = await this.$apiRequest.put(`/user/${this.userID}/${url}`, data)
-        console.log(response)
+        if(this.currentStep === 1) this.setUserInfos(response)
         this.pendingRequest = false
       }catch(e) {
         console.error("Erro ao enviar os dados para a API")
         console.error(e)
         this.pendingRequest = false
         this.$router.push({ name: "error" })
+      }
+    },
+    setUserInfos(response) {
+      try {
+        const { data } = { ...response.data }
+        const { address, document, mother_name, name, father_name } = data
+        const { city, district, number, state, publicPlace, zipCode } = address
+        const doc_number = document.number
+        let { birth_date } = data
+        birth_date = this.formatDate(birth_date)
+        this.$store.commit("setUserInfos", { name, doc_number, birth_date, mother_name, father_name, city, district, number, state, publicPlace, zipCode })
+      }catch(e) {
+        console.error("Erro ao definir as informações do usuário")
+        console.error(e)
       }
     }
   }

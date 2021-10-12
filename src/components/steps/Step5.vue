@@ -4,33 +4,33 @@
     <p class="text--small text--upper mb-30" v-text="`Aqui estão os dados consultados com base nas informações que você inseriu. Alguns deles você pode editar caso estejam desatualizados.`"></p>
     <form class="step__form" action="#" method="POST" @submit.prevent>
       <p class="text--small text--upper" v-text="`Dados Pessoais`"></p>
-      <div class="v__field active disabled">
+      <div class="v__field active disabled" v-if="userInfos.name">
         <label for="name" v-text="`Nome`"></label>
-        <input type="text" name="name" v-model="allInputs.name" disabled="disabled" autocomplete="off" />
+        <input type="text" name="name" v-model="userInfos.name" disabled="disabled" autocomplete="off" />
       </div>
-      <div class="v__field active disabled">
+      <div class="v__field active disabled" v-if="userInfos.doc_number">
         <label for="cpf" v-text="`CPF`"></label>
-        <input type="text" name="cpf" v-model="allInputs.cpf" disabled="disabled" autocomplete="off" />
+        <input type="text" name="cpf" v-model="userInfos.doc_number" v-mask="userInfos.doc_number.length > 14 ? '##.###.###/####-##' : '###.###.###-##'" disabled="disabled" autocomplete="off" />
       </div>
-      <div class="v__field active disabled">
+      <div class="v__field active disabled" v-if="userInfos.birth_date">
         <label for="birth-date" v-text="`Data de Nascimento`"></label>
-        <input type="text" name="birth-date" v-model="allInputs.birthDate" disabled="disabled" autocomplete="off" />
+        <input type="text" name="birth-date" v-model="userInfos.birth_date" disabled="disabled" autocomplete="off" />
       </div>
-      <div class="v__field active disabled">
+      <div class="v__field active disabled" v-if="userInfos.sex">
         <label for="sex" v-text="`Sexo`"></label>
-        <input type="text" name="sex" v-model="allInputs.sex" disabled="disabled" autocomplete="off" />
+        <input type="text" name="sex" v-model="userInfos.sex" disabled="disabled" autocomplete="off" />
       </div>
       <p v-text="`Filiação`" class="text--small text--upper"></p>
-      <div class="v__field active disabled">
+      <div class="v__field active disabled" v-if="userInfos.mother_name">
         <label for="mother" v-text="`Mãe`"></label>
-        <input type="text" name="mother" v-model="allInputs.mother" disabled="disabled" autocomplete="off" />
+        <input type="text" name="mother" v-model="userInfos.mother_name" disabled="disabled" autocomplete="off" />
       </div>
-      <div class="v__field active disabled">
+      <div class="v__field active disabled" v-if="userInfos.father_name">
         <label for="father" v-text="`Pai`"></label>
-        <input type="text" name="father" v-model="allInputs.father" disabled="disabled" autocomplete="off" />
+        <input type="text" name="father" v-model="userInfos.father_name" disabled="disabled" autocomplete="off" />
       </div>
       <p class="text--small text--upper my-15" v-text="`Endereço`"></p>
-      <InputField 
+      <InputField
         :customClass="`${isDisabled ? 'disabled active' : 'active'}`"
         inputName="cep"
         inputType="text"
@@ -43,7 +43,7 @@
         @input-focus="inputFocus" 
         @input-blur="inputBlur($event), validate($event, cep.category)" 
       />
-      <InputField 
+      <InputField
         :customClass="`${isDisabled ? 'disabled active' : 'active'}`"
         inputName="address"
         inputType="text"
@@ -100,6 +100,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
 import InputField from "@/components/input/InputField"
 import { inputFieldHandler } from "@/mixins/inputFieldHandler"
 import { stepValidationHandler } from "@/mixins/stepValidationHandler"
@@ -108,41 +109,41 @@ export default {
   components: { InputField },
   data() {
     return{
-      allInputs: {
-        name: "{{ name }}",
-        cpf: "{{ cpf }}",
-        birthDate:  "{{ birthDate }}",
-        sex:  "{{ sex }}",
-        mother:  "{{ mother }}",
-        father:  "{{ father }}"
-      },
       cep:  {
         category: "cep",
         isValid: true,
-        value: "05136360"
+        value: ""
       },
       address:  {
         category: "address",
         isValid: true,
-        value: "Rua Severino Chagas da Silva"
+        value: ""
       },
       number:  {
         category: "number",
         isValid: true,
-        value: "105 B"
+        value: ""
       },
       city:  {
         category: "city",
         isValid: true,
-        value: "São Paulo"
+        value: ""
       },
       state:  {
         category: "state",
         isValid: true,
-        value: "SP"
+        value: ""
       },
       isDisabled: true
     }
+  },
+  mounted() {
+    this.setAddressValues()
+  },
+  computed: {
+    ...mapGetters({
+      userInfos: "getUserInfos"
+    })
   },
   mixins: [inputFieldHandler, stepValidationHandler],
   methods: {
@@ -150,6 +151,18 @@ export default {
       this.isDisabled = false
       if(!this.isDisabled) {
         this.$nextTick(() => this.$children[0].$refs[`${this.cep.category}`].focus())
+      }
+    },
+    setAddressValues() {
+      try {
+        this.cep.value = this.userInfos.zipCode
+        this.address.value = this.userInfos.publicPlace
+        this.number.value = this.userInfos.number
+        this.city.value = this.userInfos.city
+        this.state.value = this.userInfos.state
+      }catch(e) {
+        console.error("Erro ao definir os valores do endereço do usuário")
+        console.error(e)
       }
     }
   }
