@@ -8,12 +8,18 @@ import RegisterWelcome from "../views/RegisterWelcome"
 import Support from "../views/Support"
 import Home from "../views/Home"
 import RequestError from "../views/Error"
+import Landing from "../views/Landing"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: "/",
+    name: "landing",
+    component: Landing
+  },
+  {
+    path: "/login",
     name: "login",
     component: Login
   },
@@ -48,9 +54,14 @@ const routes = [
     component: RequestError
   },
   {
+    path: "/landing",
+    name: "landing",
+    component: Landing
+  },
+  {
     path: "*",
     name: "any",
-    component: Login
+    component: Landing
   }
 ]
 
