@@ -4,16 +4,6 @@
   font-size: 1rem;
 }
 
-.step__title {
-  @include flex-center;
-  color: $primary-blue;
-}
-
-.step__subtitle {
-  text-align: center;
-  font-size: 1.1em;
-}
-
 .step__form {
   font-size: 1rem;
   .v__field {
@@ -66,10 +56,6 @@
       width: 100px;
     }
   }
-}
-
-.field--message {
-  font-size: .7em;
 }
 
 .last__step {

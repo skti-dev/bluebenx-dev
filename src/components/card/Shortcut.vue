@@ -1,5 +1,5 @@
 <template>
-  <div class="shortcut" :class="{'light-blue' : lightBlue}">
+  <div class="shortcut" :class="{'blue-icons' : blueIcons}">
     <div class="shortcut__content">
       <fa-icon :icon="icon" />
       <p v-text="`${title}`" class="text--bold"></p>
@@ -18,7 +18,7 @@ export default {
       type: Array,
       required: true
     },
-    lightBlue: {
+    blueIcons: {
       type: Boolean,
       required: false
     }

@@ -12,7 +12,7 @@
         v-for="(shortcut, index) in shortcutsData" :key="index"
         :title="shortcut.title"
         :icon="shortcut.icon"
-        :lightBlue="true"
+        :blueIcons="true"
       />
     </div>
   </section>
