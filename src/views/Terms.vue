@@ -40,11 +40,12 @@
           if(this.pendingRequest) return
           this.pendingRequest = true
           const currentDate = new Date().toJSON()
-          console.log({ currentDate })
-          const response = await this.$apiRequest.post(`/user`, { currentDate })
-          console.log(response)
+          const response = await this.$apiRequest.post(`/user`, { date: currentDate })
+          const { data } = { ...response.data }
+          const { uid } = data
+          this.$store.commit("setUserID", uid)
           this.pendingRequest = false
-          //   this.$router.push({ name: 'register' })
+          this.$router.push({ name: 'register' })
         }catch(e) {
           this.pendingRequest = false
           this.$router.push({ name: "error" })

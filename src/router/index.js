@@ -54,11 +54,6 @@ const routes = [
     component: RequestError
   },
   {
-    path: "/landing",
-    name: "landing",
-    component: Landing
-  },
-  {
     path: "*",
     name: "any",
     component: Landing
