@@ -19,6 +19,9 @@
         </keep-alive>
       </transition>
     </div>
+    <div class="register__error ml-10" v-if="errorMessage">
+      <p class="text--bold text--error" v-text="errorMessage"></p>
+    </div>
     <footer class="register__footer" :class="{'single-btn' : !hasBackButton}" v-if="currentStep != 7">
       <div class="step__selection" v-if="hasBackButton">
         <span class="icon__circle light-gray box-shadow" @click="previousStep">
@@ -58,7 +61,9 @@ export default {
       currentStep: 1,
       totalSteps: 7,
       finalData: {},
-      pendingRequest: false
+      sentData: {},
+      pendingRequest: false,
+      errorMessage: ""
     }
   },
   computed: {
@@ -112,7 +117,7 @@ export default {
           }
           if(this.currentStep != 5) await this.sendData()
         }
-        this.currentStep < this.totalSteps ? this.currentStep++ : false
+        if(!this.errorMessage) this.currentStep < this.totalSteps ? this.currentStep++ : false
       }catch(e) {
         console.error("Não foi possível avançar para o próximo step")
         console.error(e)
@@ -144,13 +149,45 @@ export default {
         }
       }
     },
+    handleStatus206(response) {
+      const { status } = response
+      if(status === 206) {
+        const { message } = response.data
+        this.errorMessage = message
+        return false
+      }
+      return true
+    },
+    verifyLastData(dataToBeSent) {
+      if(!Object.keys(this.sentData).length) return true
+      let isDiff = JSON.stringify(this.sentData) != JSON.stringify(dataToBeSent)
+      if(isDiff) {
+        let hasDifferentValues = false
+        for(let key in this.sentData) {
+          if(Object.prototype.hasOwnProperty.call(dataToBeSent, key)) {
+            if(dataToBeSent[key] != this.sentData[key]) hasDifferentValues = true
+          }
+        }
+        isDiff = hasDifferentValues
+      }
+      return isDiff
+    },
     async sendData() {
       try {
         this.pendingRequest = true
         const { url, data, error } = this.getDataAndURL()
+        if(!this.verifyLastData(data)) {
+          this.pendingRequest = false
+          return false
+        }
         if(error) throw new Error(`Não foi possível receber os dados e a URL do step atual: ${this.currentStep}`)
         const response = await this.$apiRequest.put(`/user/${this.userID}/${url}`, data)
-        if(this.currentStep === 1) this.setUserInfos(response)
+        this.sentData = { ...this.sentData, ...data }
+        console.log(this.sentData)
+        if(this.handleStatus206(response)) {
+          this.errorMessage = ""
+          if(this.currentStep === 1) this.setUserInfos(response)
+        }
         this.pendingRequest = false
       }catch(e) {
         console.error("Erro ao enviar os dados para a API")
