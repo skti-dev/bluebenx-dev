@@ -86,7 +86,10 @@ export default {
       return true
     },
     validateLogin() {
-      if(this.validateInput("user") && this.validateInput("password")) this.$router.push({ name: 'home' })
+      if(this.validateInput("user") && this.validateInput("password")) {
+        this.$store.commit("setUserInfos", { name: this.user.message })
+        this.$router.push({ name: 'home' })
+      }
     }
   }
 }
