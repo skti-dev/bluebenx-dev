@@ -7,6 +7,7 @@ import Register from "../views/Register"
 import RegisterWelcome from "../views/RegisterWelcome"
 import Support from "../views/Support"
 import Home from "../views/Home"
+import RequestError from "../views/Error"
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,11 @@ const routes = [
     path: "/home",
     name: "home",
     component: Home
+  },
+  {
+    path: "/error",
+    name: "error",
+    component: RequestError
   },
   {
     path: "*",

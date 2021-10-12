@@ -35,17 +35,19 @@
       }
     },
     methods: {
-      accept() {
+      async accept() {
         try {
+          if(this.pendingRequest) return
           this.pendingRequest = true
           const currentDate = new Date().toJSON()
           console.log({ currentDate })
-
-          setTimeout(() => {
-            this.pendingRequest = false
-            this.$router.push({ name: 'register' })
-          }, 2000)
+          const response = await this.$apiRequest.post(`/user`, { currentDate })
+          console.log(response)
+          this.pendingRequest = false
+          //   this.$router.push({ name: 'register' })
         }catch(e) {
+          this.pendingRequest = false
+          this.$router.push({ name: "error" })
           console.error("Erro ao aceitar os termos")
           console.error(e)
         }

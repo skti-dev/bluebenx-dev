@@ -6,7 +6,7 @@ const apiRequest = axios.create({
   timeout: 3000
 })
 
-Vue.$apiRequest = apiRequest
+Vue.prototype.$apiRequest = apiRequest
 
 /* 
   5 rotas:
