@@ -1,7 +1,8 @@
 export default {
   state: {
     userID: null,
-    userInfos: {}
+    userInfos: {},
+    updateFromLocalStorage: false
   },
   mutations: {
     setUserID: (state, userID) => {
@@ -11,6 +12,9 @@ export default {
       for(let key in userInfos) {
         state.userInfos[key] = userInfos[key]
       }
+    },
+    setUpdateFromLocalStorage: (state, updateFromLocalStorage) => {
+      state.updateFromLocalStorage = updateFromLocalStorage
     }
   },
   getters: {
@@ -19,6 +23,9 @@ export default {
     },
     getUserInfos: (state) => {
       return state.userInfos
+    },
+    getUpdateFromLocalStorage: (state) => {
+      return state.updateFromLocalStorage
     }
   }
 }

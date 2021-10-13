@@ -53,6 +53,7 @@ import Step7 from "@/components/steps/Step7"
 import SpinLoader from "@/components/loading/SpinLoader"
 
 import { textFormats } from "@/mixins/textFormats"
+import { localStorageHandler } from "@/mixins/localStorageHandler"
 
 export default {
   components: { Step1, Step2, Step3, Step4, Step5, Step6, Step7, SpinLoader },
@@ -95,7 +96,10 @@ export default {
       return `${((totalPercentage * partialValue) / fullValue).toFixed(2)}%`
     }
   },
-  mixins: [textFormats],
+  mounted() {
+    this.verifyLocalStorage([`userID`, `currentStep`])
+  },
+  mixins: [textFormats, localStorageHandler],
   methods: {
     returnToTerms() {
       this.$router.push({ name: "terms" })
@@ -118,6 +122,10 @@ export default {
           if(this.currentStep != 5) await this.sendData()
         }
         if(!this.errorMessage) this.currentStep < this.totalSteps ? this.currentStep++ : false
+        if(this.currentStep === 7) {
+          this.removeLocalStorageItem(`userID`)
+          this.removeLocalStorageItem(`currentStep`)
+        }
       }catch(e) {
         console.error("Não foi possível avançar para o próximo step")
         console.error(e)
@@ -125,6 +133,8 @@ export default {
     },
     setFinalData({ key, value }) {
       this.finalData[key] = value
+      this.setLocalStorageItem(`userID`, this.userID)
+      this.setLocalStorageItem(`currentStep`, this.currentStep)
     },
     getDataAndURL() {
       switch (this.currentStep) {
@@ -163,13 +173,19 @@ export default {
       let isDiff = JSON.stringify(this.sentData) != JSON.stringify(dataToBeSent)
       if(isDiff) {
         let hasDifferentValues = false
+        let hasSameKey = false
+        console.log("this.sentData: ", this.sentData)
+        console.log("dataToBeSent: ", dataToBeSent)
         for(let key in this.sentData) {
           if(Object.prototype.hasOwnProperty.call(dataToBeSent, key)) {
+            hasSameKey = true
             if(dataToBeSent[key] != this.sentData[key]) hasDifferentValues = true
           }
         }
+        hasDifferentValues = hasSameKey ? hasDifferentValues : true
         isDiff = hasDifferentValues
       }
+      console.log("isDiff: ", isDiff)
       return isDiff
     },
     async sendData() {
@@ -177,6 +193,7 @@ export default {
         this.pendingRequest = true
         const { url, data, error } = this.getDataAndURL()
         if(!this.verifyLastData(data)) {
+          console.log("Parou")
           this.pendingRequest = false
           return false
         }
@@ -199,12 +216,14 @@ export default {
     setUserInfos(response) {
       try {
         const { data } = { ...response.data }
-        const { address, document, mother_name, name, father_name } = data
-        const { city, district, number, state, publicPlace, zipCode } = address
-        const doc_number = document.number
+        const { address, document, mother_name, name, father_name, social_name, email, phone } = data
+        const { city, district, number, state, publicPlace, zipCode } = address ? address : {}
+        const doc_number = document ? document.number : null
+        const { ddd, ddi } = phone ? phone : {}
+        const phone_number = phone && phone.number ? phone.number : {}
         let { birth_date } = data
-        birth_date = this.formatDate(birth_date)
-        this.$store.commit("setUserInfos", { name, doc_number, birth_date, mother_name, father_name, city, district, number, state, publicPlace, zipCode })
+        birth_date = birth_date? this.formatDate(birth_date) : null
+        this.$store.commit("setUserInfos", { email, phone: ddd && ddi && phone_number ? `${ddi}${ddd}${phone_number}` : null, social_name, name, doc_number, birth_date, mother_name, father_name, city, district, number, state, publicPlace, zipCode })
       }catch(e) {
         console.error("Erro ao definir as informações do usuário")
         console.error(e)

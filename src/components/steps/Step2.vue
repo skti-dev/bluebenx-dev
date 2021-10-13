@@ -3,6 +3,7 @@
     <form class="step__form" action="#" method="POST" @submit.prevent>
       <p class="text--bold" v-text="`Qual seu endereço de email?`"></p>
       <InputField 
+        :customClass="email.value ? 'active' : ''"
         inputName="email"
         inputType="email"
         :inputRef="email.category"
@@ -16,6 +17,7 @@
       <br>
       <p class="text--bold" v-text="`Qual seu telefone?`"></p>
       <InputField 
+        :customClass="phone.value ? 'active' : ''"
         inputName="phone"
         inputType="text"
         :inputRef="phone.category"
@@ -32,6 +34,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import InputField from "@/components/input/InputField"
 import { inputFieldHandler } from "@/mixins/inputFieldHandler"
 import { stepValidationHandler } from "@/mixins/stepValidationHandler"
@@ -53,6 +57,28 @@ export default {
       dynamicMask: "+## ## #####-####"
     }
   },
-  mixins: [inputFieldHandler, stepValidationHandler]
+  computed: {
+    ...mapGetters({
+      userInfo: "getUserInfos"
+    })
+  },
+  mixins: [inputFieldHandler, stepValidationHandler],
+  mounted() {
+    this.setDataIfHas()
+  },
+  methods: {
+    setDataIfHas() {
+      try {
+        console.log("Chamou")
+        if(!Object.keys(this.userInfo).length) return
+        console.log("Passou: ", this.userInfo)
+        this.email.value = this.userInfo.email
+        this.phone.value = this.userInfo.phone
+      }catch(e) {
+        console.error("Não foi possível preencher os campos do step 2")
+        console.error(e)
+      }
+    }
+  }
 }
 </script>

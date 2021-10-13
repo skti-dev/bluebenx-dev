@@ -69,7 +69,7 @@ export default {
       }
       this.hasError = false
       return true
-    }
+    },
   },
   destroyed() {
     this.endCodeInterval()
