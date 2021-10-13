@@ -69,9 +69,7 @@ export default {
   methods: {
     setDataIfHas() {
       try {
-        console.log("Chamou")
         if(!Object.keys(this.userInfo).length) return
-        console.log("Passou: ", this.userInfo)
         this.email.value = this.userInfo.email
         this.phone.value = this.userInfo.phone
       }catch(e) {

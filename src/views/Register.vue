@@ -174,8 +174,6 @@ export default {
       if(isDiff) {
         let hasDifferentValues = false
         let hasSameKey = false
-        console.log("this.sentData: ", this.sentData)
-        console.log("dataToBeSent: ", dataToBeSent)
         for(let key in this.sentData) {
           if(Object.prototype.hasOwnProperty.call(dataToBeSent, key)) {
             hasSameKey = true
@@ -185,7 +183,6 @@ export default {
         hasDifferentValues = hasSameKey ? hasDifferentValues : true
         isDiff = hasDifferentValues
       }
-      console.log("isDiff: ", isDiff)
       return isDiff
     },
     async sendData() {
@@ -193,14 +190,12 @@ export default {
         this.pendingRequest = true
         const { url, data, error } = this.getDataAndURL()
         if(!this.verifyLastData(data)) {
-          console.log("Parou")
           this.pendingRequest = false
           return false
         }
         if(error) throw new Error(`Não foi possível receber os dados e a URL do step atual: ${this.currentStep}`)
         const response = await this.$apiRequest.put(`/user/${this.userID}/${url}`, data)
         this.sentData = { ...this.sentData, ...data }
-        console.log(this.sentData)
         if(this.handleStatus206(response)) {
           this.errorMessage = ""
           if(this.currentStep === 1) this.setUserInfos(response)

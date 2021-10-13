@@ -77,7 +77,6 @@ export default {
     },
     setDataIfHas() {
       try {
-        console.log("Alo: ", this.userInfo)
         if(!Object.keys(this.userInfo).length) return
         this.socialName.value = this.userInfo.social_name
         this.cpfCnpj.value = this.userInfo.doc_number

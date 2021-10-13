@@ -13,17 +13,14 @@ export const localStorageHandler = {
     },
     async verifyLocalStorage(arrKeys) {
       try {
-        console.log("Verificou")
         const mainKey = arrKeys[0]
         const secondaryKey = arrKeys[1]
         const userID = localStorage.getItem(mainKey)
         const step = localStorage.getItem(secondaryKey)
         if(userID && userID != "null") {
-          console.log("Fez a req")
           const response = await this.$apiRequest.get(`/user/${userID}`)
           const { data } = {...response.data}
           const { address, document, mother_name, name, father_name, social_name, email, phone } = data
-          console.log({ address, document, mother_name, name, father_name, social_name, email, phone })
           if(!address && !document && !mother_name && !name && !father_name && !social_name && !email && !phone) throw new Error("Existe UID no localStorage, porém nenhum dado desse UID foi retornado pela API")
           this.setUserInfos(response)
           this.currentStep = parseInt(step)
