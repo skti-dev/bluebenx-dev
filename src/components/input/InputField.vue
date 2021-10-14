@@ -11,7 +11,7 @@
       :disabled="inputDisabled"
       v-mask="mask"
       v-model="$parent[inputRef].value"
-      @input="$emit('input-typing', { e: $event, inputRef }), checkMask($event)"
+      @input="$emit('input-typing', { e: $event, inputRef }), checkMask($event), $emit('input-focus', $event)"
       @focus="$emit('input-focus', $event)" 
       @blur="$emit('input-blur', $event, inputRef)" 
     />

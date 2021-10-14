@@ -1,5 +1,5 @@
 <template>
-  <input type="number" :maxlength="1" @input="verifyInput" v-model="inputValue" autocomplete="off" class="code mr-10 text--bold">
+  <input type="number" :maxlength="1" @input="verifyInput" v-model="inputValue" @keyup.delete="deletePrevious" autocomplete="off" class="code mr-10 text--bold">
 </template>
 
 <script>
@@ -24,6 +24,19 @@ export default {
         this.$emit("inputData", this.inputValue)
       }catch(error) {
         console.error("Erro ao validar o input")
+        console.error(error)
+      }
+    },
+    deletePrevious(e) {
+      try {
+        const { target } = e
+        const { previousElementSibling, value } = target
+        if(!value) {
+          if(previousElementSibling) previousElementSibling.focus()
+          this.inputValue = ""
+        }
+      }catch(error) {
+        console.error("Erro ao deletar o valor anterior")
         console.error(error)
       }
     }
