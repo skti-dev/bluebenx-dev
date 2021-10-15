@@ -1,6 +1,5 @@
 export const localStorageHandler = {
   methods: {
-    // Salvar o UID e o Step, fazer um get para /user/:id
     setLocalStorageItem(mainKey, value) {
       try {
         const currentItem = localStorage.getItem(mainKey)
