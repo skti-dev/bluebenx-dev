@@ -19,11 +19,11 @@
         <ul class="mb-30">
           <li class="my-30">
             <span class="text--bold" v-text="`1-`"></span>
-            Para realizar o cadastro será necessário ter em mãos um documento com foto(ex: RG e CNH)
+            {{ `Para realizar o cadastro será necessário ter em mãos um documento com foto(ex: RG e CNH)` }}
           </li>
           <li>
             <span class="text--bold" v-text="`2-`"></span>
-            Verifique se sua internet estará disponível durante todo o processo de cadastro, pois ela é fundamental para nós conseguirmos prosseguir com ele :)
+            {{ `Verifique se sua internet estará disponível durante todo o processo de cadastro, pois ela é fundamental para nós conseguirmos prosseguir com ele :)` }}
           </li>
         </ul>
       </div>

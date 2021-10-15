@@ -3,7 +3,7 @@
     <header class="register__header">
       <div class="register__title">
         <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click text--default-blue" @click="returnToTerms" />
-        <h1> Cadastro Conta Digital </h1>
+        <h1 v-text="`Cadastro Conta Digital`"></h1>
       </div>
       <div class="register__step-count" :class="{'last__step' : currentStep === 7}">
         <span class="text--bold" v-text="`Passo ${currentStep} de ${totalSteps}`"></span>

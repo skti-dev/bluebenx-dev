@@ -1,7 +1,7 @@
 <template>
   <div class="step">
     <form class="step__form" action="#" method="POST" @submit.prevent>
-      <p class="text--bold" v-text="`Qual seu endereço de email?`"></p>
+      <p class="text--bold" v-text="`Qual seu endereço de e-mail?`"></p>
       <InputField 
         :customClass="email.value ? 'active' : ''"
         inputName="email"

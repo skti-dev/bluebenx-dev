@@ -13,11 +13,11 @@
           <p class="text--upper text--small" v-text="`Precisaremos de uma foto de frente e verso ${selectedDoc === 'RG' ? `do seu ${selectedDoc}` : `da sua ${selectedDoc}`}`"></p>
           <div class="step__buttons mt-10 mb-20">
             <button class="btn mr-25 text--bold" :class="{'default-blue' : add.front, 'light-gray' : !add.front}" @click="add.front = !add.front">
-              Frente
+              {{ `Frente` }}
               <fa-icon :icon="['fas', 'check']" v-if="add.front" class="ml-10" />
             </button>
             <button class="btn text--bold" :class="{'default-blue' : add.back, 'light-gray' : !add.back}" @click="add.back = !add.back">
-              Verso
+              {{ `Verso` }}
               <fa-icon :icon="['fas', 'check']" v-if="add.back" class="ml-10" />
             </button>
           </div>

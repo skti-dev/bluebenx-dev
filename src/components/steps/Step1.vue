@@ -14,7 +14,7 @@
         @input-focus="inputFocus"
         @input-blur="inputBlur($event), validate($event, socialName.category)"
       />
-      <p class="text--bold mt-30" v-text="`Qual o seu número de CPF ou CNPJ`"></p>
+      <p class="text--bold mt-30" v-text="`Qual o seu número de CPF ou CNPJ?`"></p>
       <InputField 
         :customClass="cpfCnpj.value ? 'active' : ''"
         inputName="document"
