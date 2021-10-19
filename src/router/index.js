@@ -9,6 +9,7 @@ import Support from "../views/Support"
 import Home from "../views/Home"
 import RequestError from "../views/Error"
 import Landing from "../views/Landing"
+import RecoveredData from "../views/RecoveredData"
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,11 @@ const routes = [
     path: "/home",
     name: "home",
     component: Home
+  },
+  {
+    path: "/recover-data",
+    name: "recover-data",
+    component: RecoveredData
   },
   {
     path: "/error",

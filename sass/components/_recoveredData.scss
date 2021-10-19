@@ -1,0 +1,18 @@
+.recovered-data {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: $primary-white;
+  padding: 20px;
+  font-size: 1rem;
+}
+
+.recovered-data__content {
+  width: 100%;
+}
+
+.recovered-data__buttons {
+  @include flex-center;
+  flex-wrap: wrap;
+}

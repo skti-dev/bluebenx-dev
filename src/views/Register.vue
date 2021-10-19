@@ -97,10 +97,22 @@ export default {
     }
   },
   mounted() {
-    this.verifyLocalStorage([`userID`, `currentStep`])
+    this.initRegister()
   },
   mixins: [textFormats, localStorageHandler],
   methods: {
+    initRegister() {
+      try {
+        if(Object.keys(this.$route.params).length === 0) return this.verifyLocalStorage([`userID`, `currentStep`])
+        const { response, step } = this.$route.params
+        this.setUserInfos(response)
+        this.currentStep = step
+        this.$store.commit("setUpdateFromLocalStorage", true)
+      }catch(e) {
+        console.error("Erro ao iniciar o cadastro")
+        console.error(e)
+      }
+    },
     returnToTerms() {
       this.$router.push({ name: "terms" })
     },
@@ -133,8 +145,10 @@ export default {
     },
     setFinalData({ key, value }) {
       this.finalData[key] = value
-      this.setLocalStorageItem(`userID`, this.userID)
-      this.setLocalStorageItem(`currentStep`, this.currentStep)
+      if(this.currentStep <= 2) {
+        this.setLocalStorageItem(`userID`, this.userID)
+        this.setLocalStorageItem(`currentStep`, this.currentStep)
+      }
     },
     getDataAndURL() {
       switch (this.currentStep) {
