@@ -1,21 +1,21 @@
 <template>
   <section class="login max-width">
     <div class="login__img">
-      <img src="../assets/images/img-login.png" alt="">
+      <img src="../assets/images/img-login.png" alt="Mulher jovem sorrindo, vestindo uma blusa amarela e segurando um celular.">
     </div>
     <form action="#" method="POST" @submit.prevent class="login__form mb-30">
       <fieldset>
         <legend v-text="`Login`" class="text--bold mb-30"></legend>
         <InputField 
-          :customClass="`mb-30 ${!user.isValid ? 'invalid' : ''}`"
-          labelText="Usuário"
+          :customClass="`mb-30 ${!email.isValid ? 'invalid' : ''}`"
+          labelText="E-mail"
           inputType="text"
-          inputRef="user"
-          inputName="user"
+          inputRef="email"
+          inputName="email"
           :inputRequired="true"
-          inputPlaceholder="Digite o seu nome de usuário"
-          :showError="!user.isValid"
-          errorMessage="Usuário inválido"
+          inputPlaceholder="Digite o seu e-mail"
+          :showError="!email.isValid"
+          errorMessage="E-mail inválido"
           @input-typing="setInputMessage"
           @input-focus="inputFocus"
           @input-blur="inputBlur"
@@ -34,6 +34,7 @@
           @input-focus="inputFocus"
           @input-blur="inputBlur"
         />
+        <p v-if="authError" class="text--error mb-20" v-text="`E-mail e/ou senha inválidos`"></p>
       </fieldset>
       <p class="login__password-reset"> <a href="#" v-text="`Esqueci minha senha`"></a> </p>
       <button class="btn default-blue mt-30" v-text="`Acessar`" @click="validateLogin"></button>
@@ -54,14 +55,15 @@ export default {
   mixins: [inputFieldHandler],
   data() {
     return {
-      user: {
+      email: {
         message: "",
         isValid: true
       },
       password: {
         message: "",
         isValid: true
-      }
+      },
+      authError: false
     }
   },
   methods: {
@@ -85,10 +87,30 @@ export default {
       this[key].isValid = true
       return true
     },
-    validateLogin() {
-      if(this.validateInput("user") && this.validateInput("password")) {
-        this.$store.commit("setUserInfos", { name: this.user.message })
-        this.$router.push({ name: 'home' })
+    async validateLogin() {
+      if(this.validateInput("email") && this.validateInput("password")) {
+        try {
+          const sentData = { email: this.email.message, password: this.password.message }
+          const response = await this.$apiRequest.post(`/login`, sentData)
+          const { data } = response
+          const { code } = data
+          switch (code) {
+            case 200:
+              this.authError = false
+              this.$store.commit("setUserInfos", { name: this.email.message })
+              this.$router.push({ name: "home" })
+            break
+            case 400:
+              this.authError = true
+            break
+            default:
+              this.$router.push({ name: "error" })
+            break
+          }
+        }catch(e) {
+          console.error("Erro ao logar no sistema")
+          console.error(e)
+        }
       }
     }
   }
