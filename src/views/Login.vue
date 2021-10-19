@@ -9,7 +9,7 @@
         <InputField 
           :customClass="`mb-30 ${!email.isValid ? 'invalid' : ''}`"
           labelText="E-mail"
-          inputType="text"
+          inputType="email"
           inputRef="email"
           inputName="email"
           :inputRequired="true"
