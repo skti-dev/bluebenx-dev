@@ -102,8 +102,8 @@ export default {
           let hasData = false
           if(data && Object.keys(data).length > 0) {
             hasData = true
-            const { social_name } = data ? data : {}
-            const { code } = data ? data : {}
+            const { social_name } = data
+            const { code } = data
             switch (code) {
               case 500:
                 this.$router.push({ name: "error" })
