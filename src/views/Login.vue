@@ -63,7 +63,8 @@ export default {
         message: "",
         isValid: true
       },
-      authError: false
+      authError: false,
+      pendingRequest: false
     }
   },
   methods: {
@@ -88,7 +89,9 @@ export default {
       return true
     },
     async validateLogin() {
+      if(this.pendingRequest) return false
       if(this.validateInput("email") && this.validateInput("password")) {
+        this.pendingRequest = true
         try {
           const sentData = { email: this.email.message, password: this.password.message }
           const response = await this.$apiRequest.post(`/login`, sentData)
@@ -107,9 +110,11 @@ export default {
               this.$router.push({ name: "error" })
             break
           }
+          this.pendingRequest = false
         }catch(e) {
           console.error("Erro ao logar no sistema")
           console.error(e)
+          this.pendingRequest = false
         }
       }
     }

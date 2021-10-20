@@ -225,6 +225,7 @@ export default {
     setUserInfos(response) {
       try {
         const { data } = { ...response.data }
+        if(!data) return false
         const { address, document, mother_name, name, father_name, social_name, email, phone } = data
         const { city, district, number, state, publicPlace, zipCode } = address ? address : {}
         const doc_number = document ? document.number : null

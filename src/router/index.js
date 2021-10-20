@@ -11,6 +11,8 @@ import RequestError from "../views/Error"
 import Landing from "../views/Landing"
 import RecoveredData from "../views/RecoveredData"
 
+import store from "../store"
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -68,6 +70,35 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  try {
+    const { name } = to
+    const protectedRouteNames = ["register", "support", "recover-data", "home"]
+    if(protectedRouteNames.includes(name)) {
+      const userInfos = store.getters.getUserInfos
+      const hasUserInfos = Object.keys(userInfos).length > 0 ? true : false
+      const userID = store.getters.getUserID
+      switch (name) {
+        case "home":
+        case "support":
+          if(hasUserInfos) return next()
+          return next("/login")
+        case "register":
+        case "recover-data":
+          if(userID) return next()
+          return next("/terms")
+        default:
+          return next()
+      }
+    }
+    return next()
+  }catch(e) {
+    console.error("Erro ao verificar a rota")
+    console.error(e)
+    return next()
+  }
 })
 
 export default router

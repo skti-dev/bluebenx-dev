@@ -19,6 +19,7 @@ export const localStorageHandler = {
         if(userID && userID != "null") {
           const response = await this.$apiRequest.get(`/user/${userID}`)
           const { data } = {...response.data}
+          if(!data) return false
           const { address, document, mother_name, name, father_name, social_name, email, phone } = data
           if(!address && !document && !mother_name && !name && !father_name && !social_name && !email && !phone) throw new Error("Existe UID no localStorage, porém nenhum dado desse UID foi retornado pela API")
           this.$router.push({ name: "recover-data", params: { response, step: parseInt(step) } })
