@@ -7,7 +7,7 @@
       <fieldset>
         <legend v-text="`Login`" class="text--bold mb-30"></legend>
         <InputField 
-          :customClass="`mb-30 ${!email.isValid ? 'invalid' : ''}`"
+          :customClass="`mb-30 ${!email.isValid && email.value ? 'invalid active' : !email.isValid ? 'invalid' : email.value ? 'active' : '' }`"
           labelText="E-mail"
           inputType="email"
           inputRef="email"
@@ -16,12 +16,12 @@
           inputPlaceholder="Digite o seu e-mail"
           :showError="!email.isValid"
           errorMessage="E-mail inválido"
-          @input-typing="setInputMessage"
-          @input-focus="inputFocus"
-          @input-blur="inputBlur"
+          @input-typing="setInputMessage($event)"
+          @input-focus="inputFocus($event)"
+          @input-blur="inputBlur($event), validate($event, email.category)"
         />
         <InputField 
-          :customClass="`mb-30 ${!password.isValid ? 'invalid' : ''}`"
+          :customClass="`mb-30 ${!password.isValid && password.value ? 'invalid active' : !password.isValid ? 'invalid' : password.value ? 'active' : '' }`"
           labelText="Senha"
           inputType="password"
           inputRef="password"
@@ -30,9 +30,9 @@
           inputPlaceholder="Digite a sua senha"
           :showError="!password.isValid"
           errorMessage="Senha inválida"
-          @input-typing="setInputMessage"
-          @input-focus="inputFocus"
-          @input-blur="inputBlur"
+          @input-typing="setInputMessage($event)"
+          @input-focus="inputFocus($event)"
+          @input-blur="inputBlur($event), validate($event, password.category)"
         />
         <p v-if="authError" class="text--error mb-20" v-text="`E-mail e/ou senha inválidos`"></p>
       </fieldset>
@@ -49,18 +49,21 @@
 <script>
 import InputField from "@/components/input/InputField"
 import { inputFieldHandler } from "@/mixins/inputFieldHandler"
+import { stepValidationHandler } from "@/mixins/stepValidationHandler"
 
 export default {
   components: { InputField },
-  mixins: [inputFieldHandler],
+  mixins: [inputFieldHandler, stepValidationHandler],
   data() {
     return {
       email: {
-        message: "",
+        category: "email",
+        value: "",
         isValid: true
       },
       password: {
-        message: "",
+        category: "password",
+        value: "",
         isValid: true
       },
       authError: false,
@@ -73,48 +76,56 @@ export default {
         const { e, inputRef } = inputObj
         const { target } = e
         const { value } = target
-        this[inputRef].message = value
+        this[inputRef].value = value
       }catch(error) {
         console.error("Erro ao definir o valor para o input")
         console.error(error)
       }
     },
     validateInput(key) {
-      if(!this[key].message || !this[key].message.trim("")) {
+      if(!this[key].value || !this[key].value.trim("")) {
         this[key].isValid = false
         return false
       }
-
+      if(!this[key].isValid) return false
       this[key].isValid = true
       return true
     },
     async validateLogin() {
       if(this.pendingRequest) return false
-      if(this.validateInput("email") && this.validateInput("password")) {
+      if(this.validateInput("email") && this.validateInput("password") && this.email.isValid && this.password.isValid) {
         this.pendingRequest = true
         try {
-          const sentData = { email: this.email.message, password: this.password.message }
+          const sentData = { email: this.email.value, password: this.password.value}
           const response = await this.$apiRequest.post(`/login`, sentData)
-          const { data } = response
-          const { code } = data
-          switch (code) {
-            case 200:
-              this.authError = false
-              this.$store.commit("setUserInfos", { name: this.email.message })
-              this.$router.push({ name: "home" })
-            break
-            case 400:
-              this.authError = true
-            break
-            default:
-              this.$router.push({ name: "error" })
-            break
+          const { data } = response && response.data ? {...response.data} : {}
+          let hasData = false
+          if(data && Object.keys(data).length > 0) {
+            hasData = true
+            const { social_name } = data ? data : {}
+            const { code } = data ? data : {}
+            switch (code) {
+              case 500:
+                this.$router.push({ name: "error" })
+              break
+              case 400:
+                this.authError = true
+              break
+              case 200:
+              default:
+                this.authError = false
+                this.$store.commit("setUserInfos", { name: social_name })
+                this.$router.push({ name: "home" })
+              break
+            }
           }
+          if(!hasData) this.authError = true
           this.pendingRequest = false
         }catch(e) {
           console.error("Erro ao logar no sistema")
           console.error(e)
           this.pendingRequest = false
+          this.$router.push({ name: "error" })
         }
       }
     }
