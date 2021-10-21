@@ -1,5 +1,5 @@
 <template>
-  <input type="number" :maxlength="1" @input="verifyInput" v-model="inputValue" @keyup.delete="deletePrevious" autocomplete="off" class="code mr-10 text--bold">
+  <input type="number" :maxlength="1" @input="verifyInput" v-model="inputValue" @keyup.delete="deletePrevious" @paste.prevent autocomplete="off" class="code mr-10 text--bold">
 </template>
 
 <script>
