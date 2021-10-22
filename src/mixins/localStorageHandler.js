@@ -22,7 +22,13 @@ export const localStorageHandler = {
           if(!data) return false
           const { address, document, mother_name, name, father_name, social_name, email, phone } = data
           if(!address && !document && !mother_name && !name && !father_name && !social_name && !email && !phone) throw new Error("Existe UID no localStorage, porém nenhum dado desse UID foi retornado pela API")
-          this.$router.push({ name: "recover-data", params: { response, step: parseInt(step) } })
+          // Com rota
+          // this.$router.push({ name: "recover-data", params: { response, step: parseInt(step) } })
+          
+          // Sem rota
+          this.hasNotification = true
+          this.recoveredResponse = response
+          this.recoveredStep = parseInt(step)
         }
       }catch(e) {
         console.error("Erro ao verificar a posição no localStorage")

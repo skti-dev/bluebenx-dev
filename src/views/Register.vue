@@ -37,6 +37,15 @@
         </span>
       </div>
     </footer>
+    <transition name="fade">  
+      <RecoveredData
+        v-if="hasNotification" 
+        :response="recoveredResponse"
+        :step="recoveredStep"
+        @restore-data="restoreData"
+        @close-notification="hasNotification = false"
+      />
+    </transition>
   </section>
 </template>
 
@@ -51,12 +60,13 @@ import Step5 from "@/components/steps/Step5"
 import Step6 from "@/components/steps/Step6"
 import Step7 from "@/components/steps/Step7"
 import SpinLoader from "@/components/loading/SpinLoader"
+import RecoveredData from "@/components/footerNotification/RecoveredData"
 
 import { textFormats } from "@/mixins/textFormats"
 import { localStorageHandler } from "@/mixins/localStorageHandler"
 
 export default {
-  components: { Step1, Step2, Step3, Step4, Step5, Step6, Step7, SpinLoader },
+  components: { Step1, Step2, Step3, Step4, Step5, Step6, Step7, SpinLoader, RecoveredData },
   data() {
     return {
       currentStep: 1,
@@ -64,7 +74,10 @@ export default {
       finalData: {},
       sentData: {},
       pendingRequest: false,
-      errorMessage: ""
+      errorMessage: "",
+      recoveredResponse: {},
+      recoveredStep: 0,
+      hasNotification: false
     }
   },
   computed: {
@@ -101,13 +114,19 @@ export default {
   },
   mixins: [textFormats, localStorageHandler],
   methods: {
+    restoreData({ response, step }) {
+      console.log({ response, step })
+      this.setUserInfos(response)
+      this.currentStep = step
+      this.$store.commit("setUpdateFromLocalStorage", true)
+    },
     initRegister() {
       try {
         if(Object.keys(this.$route.params).length === 0) return this.verifyLocalStorage([`userID`, `currentStep`])
-        const { response, step } = this.$route.params
-        this.setUserInfos(response)
-        this.currentStep = step
-        this.$store.commit("setUpdateFromLocalStorage", true)
+        // const { response, step } = this.$route.params
+        // this.setUserInfos(response)
+        // this.currentStep = step
+        // this.$store.commit("setUpdateFromLocalStorage", true)
       }catch(e) {
         console.error("Erro ao iniciar o cadastro")
         console.error(e)
@@ -244,6 +263,13 @@ export default {
 </script>
 
 <style scoped>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 300ms;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+
   @keyframes slide-in {
     from {
       transform: translateX(-30px);
