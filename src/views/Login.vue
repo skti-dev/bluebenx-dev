@@ -37,7 +37,10 @@
         <p v-if="authError" class="text--error mb-20" v-text="`E-mail e/ou senha inválidos`"></p>
       </fieldset>
       <p class="login__password-reset"> <a href="#" v-text="`Esqueci minha senha`"></a> </p>
-      <button class="btn default-blue mt-30" v-text="`Acessar`" @click="validateLogin"></button>
+      <button class="btn default-blue mt-30" @click="validateLogin">
+        <template v-if="!pendingRequest">Acessar</template>
+        <SpinLoader v-else :small="true" />
+      </button>
     </form>
     <div class="login__footer ml-10 mr-10 mb-40">
       <p class="text--bold" v-text="`Ainda não possui um cadastro?`"></p>
@@ -48,11 +51,13 @@
 
 <script>
 import InputField from "@/components/input/InputField"
+import SpinLoader from "@/components/loading/SpinLoader"
+
 import { inputFieldHandler } from "@/mixins/inputFieldHandler"
 import { stepValidationHandler } from "@/mixins/stepValidationHandler"
 
 export default {
-  components: { InputField },
+  components: { InputField, SpinLoader },
   mixins: [inputFieldHandler, stepValidationHandler],
   data() {
     return {

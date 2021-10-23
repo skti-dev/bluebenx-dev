@@ -11,7 +11,7 @@
         <SingleCharInput @inputData="setFinalData('code-5', $event)" />
       </div>
       <span v-if="codeTime" class="code__resend text--bold" v-text="`Reenviar código: ${codeTime}s`"></span>
-      <span v-else class="code__resend cursor--click text--bold" v-text="`Reenviar código`" @click="initCodeInterval"></span>
+      <span v-else class="code__resend cursor--click text--bold" v-text="`Reenviar código`" @click="initCodeInterval(), $emit('resendCode')"></span>
       <p v-if="hasError" class="text--error" v-text="`Preencha o código corretamente`"></p>
     </form>
   </div>

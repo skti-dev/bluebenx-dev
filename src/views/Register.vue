@@ -15,7 +15,7 @@
     <div class="register__steps my-15" :class="{'last__step' : currentStep === 7}">
       <transition name="slide" mode="out-in">
         <keep-alive>
-          <component v-bind:is="currentView" @setFinalData="setFinalData" />
+          <component v-bind:is="currentView" @setFinalData="setFinalData" @resendCode="resendCode" />
         </keep-alive>
       </transition>
     </div>
@@ -62,7 +62,6 @@ import Step7 from "@/components/steps/Step7"
 import SpinLoader from "@/components/loading/SpinLoader"
 import RecoveredData from "@/components/footerNotification/RecoveredData"
 
-import { textFormats } from "@/mixins/textFormats"
 import { localStorageHandler } from "@/mixins/localStorageHandler"
 
 export default {
@@ -72,7 +71,6 @@ export default {
       currentStep: 1,
       totalSteps: 7,
       finalData: {},
-      sentData: {},
       pendingRequest: false,
       errorMessage: "",
       recoveredResponse: {},
@@ -112,10 +110,9 @@ export default {
   mounted() {
     this.initRegister()
   },
-  mixins: [textFormats, localStorageHandler],
+  mixins: [localStorageHandler],
   methods: {
     restoreData({ response, step }) {
-      console.log({ response, step })
       this.setUserInfos(response)
       this.currentStep = step
       this.$store.commit("setUpdateFromLocalStorage", true)
@@ -123,10 +120,6 @@ export default {
     initRegister() {
       try {
         if(Object.keys(this.$route.params).length === 0) return this.verifyLocalStorage([`userID`, `currentStep`])
-        // const { response, step } = this.$route.params
-        // this.setUserInfos(response)
-        // this.currentStep = step
-        // this.$store.commit("setUpdateFromLocalStorage", true)
       }catch(e) {
         console.error("Erro ao iniciar o cadastro")
         console.error(e)
@@ -146,9 +139,6 @@ export default {
             if(!this.$children[this.currentStep - 1].verifyFinalData()) return false
           }else{
             if(!this.$children[this.currentStep - 1].validateAllInputs()) return false
-            if(this.currentStep === 6) {
-              if(!this.$children[this.currentStep - 1].match) return false
-            }
           }
           if(this.currentStep != 5) await this.sendData()
         }
@@ -169,8 +159,9 @@ export default {
         this.setLocalStorageItem(`currentStep`, this.currentStep)
       }
     },
-    getDataAndURL() {
-      switch (this.currentStep) {
+    getDataAndURL(specificStep) {
+      const step = !specificStep ? this.currentStep : specificStep
+      switch (step) {
         case 1: {
           const { social_name, document } = this.finalData
           return { url: `document-name`, data: { social_name, document } }
@@ -201,34 +192,12 @@ export default {
       }
       return true
     },
-    verifyLastData(dataToBeSent) {
-      if(!Object.keys(this.sentData).length) return true
-      let isDiff = JSON.stringify(this.sentData) != JSON.stringify(dataToBeSent)
-      if(isDiff) {
-        let hasDifferentValues = false
-        let hasSameKey = false
-        for(let key in this.sentData) {
-          if(Object.prototype.hasOwnProperty.call(dataToBeSent, key)) {
-            hasSameKey = true
-            if(dataToBeSent[key] != this.sentData[key]) hasDifferentValues = true
-          }
-        }
-        hasDifferentValues = hasSameKey ? hasDifferentValues : true
-        isDiff = hasDifferentValues
-      }
-      return isDiff
-    },
     async sendData() {
       try {
         this.pendingRequest = true
         const { url, data, error } = this.getDataAndURL()
-        if(!this.verifyLastData(data)) {
-          this.pendingRequest = false
-          return false
-        }
         if(error) throw new Error(`Não foi possível receber os dados e a URL do step atual: ${this.currentStep}`)
         const response = await this.$apiRequest.put(`/user/${this.userID}/${url}`, data)
-        this.sentData = { ...this.sentData, ...data }
         if(this.handleStatus206(response)) {
           this.errorMessage = ""
           if(this.currentStep === 1) this.setUserInfos(response)
@@ -251,11 +220,26 @@ export default {
         const { ddd, ddi } = phone ? phone : {}
         const phone_number = phone && phone.number ? phone.number : {}
         let { birth_date } = data
-        birth_date = birth_date? this.formatDate(birth_date) : null
+        birth_date = birth_date ? birth_date : null
         this.$store.commit("setUserInfos", { email, phone: ddd && ddi && phone_number ? `${ddi}${ddd}${phone_number}` : null, social_name, name, doc_number, birth_date, mother_name, father_name, city, district, number, state, publicPlace, zipCode })
       }catch(e) {
         console.error("Erro ao definir as informações do usuário")
         console.error(e)
+      }
+    },
+    async resendCode() {
+      try {
+        if(this.pendingRequest) return false
+        const { url, data, error } = this.getDataAndURL(2)
+        if(error) throw new Error(`Não foi possível receber os dados e a URL para reenviar os dados`)
+        this.pendingRequest = true
+        await this.$apiRequest.put(`/user/${this.userID}/${url}`, data)
+        this.pendingRequest = false
+      }catch(e) {
+        console.error("Erro ao reenviar o código")
+        console.error(e)
+        this.pendingRequest = false
+        this.$router.push({ name: "error" })
       }
     }
   }

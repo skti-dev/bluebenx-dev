@@ -1,9 +1,5 @@
 <template>
    <section class="recovered-data max-width">
-    <!-- <header class="step-back__header">
-      <fa-icon :icon="['fas', 'chevron-left']" class="cursor--click text--dark-blue" @click="returnToTerms" />
-      <span class="text--bold" v-text="`Recuperar cadastro`"></span>
-    </header> -->
     <footer class="recovered-data__content mt-30">
       <p class="text--bold" v-text="`Existe um cadastro pendente. Você deseja continuar de onde parou?`"></p>
       <div class="recovered-data__buttons">

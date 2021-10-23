@@ -9,7 +9,6 @@ import Support from "../views/Support"
 import Home from "../views/Home"
 import RequestError from "../views/Error"
 import Landing from "../views/Landing"
-import RecoveredData from "../views/RecoveredData"
 
 import store from "../store"
 
@@ -52,11 +51,6 @@ const routes = [
     component: Home
   },
   {
-    path: "/recover-data",
-    name: "recover-data",
-    component: RecoveredData
-  },
-  {
     path: "/error",
     name: "error",
     component: RequestError
@@ -75,7 +69,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   try {
     const { name } = to
-    const protectedRouteNames = ["register", "support", "recover-data", "home"]
+    const protectedRouteNames = ["register", "support", "home"]
     if(protectedRouteNames.includes(name)) {
       const userInfos = store.getters.getUserInfos
       const hasUserInfos = Object.keys(userInfos).length > 0 ? true : false
@@ -86,7 +80,6 @@ router.beforeEach((to, from, next) => {
           if(hasUserInfos) return next()
           return next("/login")
         case "register":
-        case "recover-data":
           if(userID) return next()
           return next("/terms")
         default:

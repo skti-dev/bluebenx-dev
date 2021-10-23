@@ -1,7 +1,7 @@
 .loading {
   width: 100%;
   height: 100%;
-  background-color: $dark-blue;
+  background-color: $primary-white;
   @include flex-center;
   position: absolute;
   z-index: 1;
@@ -12,7 +12,6 @@
 
 .loading__content {
   @include flex-center;
-  color: $primary-white;
   h1 {
     font-size: 2em;
     font-weight: normal;
@@ -26,12 +25,16 @@
 .loader {
   $border: 5px;
   $dimension: 30px;
+  &.small {
+    $dimension: 18px;
+    $border: 3px;
+  }
   border: $border solid $dark-blue; 
   border-top: $border solid $light-gray;
   border-radius: 50%;
+  animation: spin 2500ms linear infinite;
   width: $dimension;
   height: $dimension;
-  animation: spin 2500ms linear infinite;
 }
 
 @keyframes spin {

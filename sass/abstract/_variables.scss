@@ -19,8 +19,7 @@ $dark-gray: #777;
   /* Disabled input */
 $disabled-color: #DEDEDE;
   /* Error */
-// $color-error: #ff5a74;
-$color-error: #6d676e;
+$color-error: darken(#F2BC1B, 5);
   /* Box shadow tones */
 $bs-1: rgba(0, 0, 0, 0.2);
 $bs-2: rgba(0, 0, 0, 0.14);

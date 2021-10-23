@@ -9,6 +9,8 @@
         :inputRef="email.category"
         labelText="E-mail"
         inputPlaceholder="Digite o seu e-mail"
+        :showError="!email.isValid"
+        errorMessage="E-mail inválido"
         @input-focus="inputFocus" 
         @input-blur="inputBlur($event), validate($event, email.category)" 
       />
@@ -21,6 +23,8 @@
         :inputRef="phone.category"
         labelText="Telefone"
         inputPlaceholder="Digite o seu número de telefone"
+        :showError="!phone.isValid"
+        errorMessage="Telefone inválido"
         maskType="phone"
         @input-focus="inputFocus" 
         @input-blur="inputBlur($event), validate($event, phone.category)" 
