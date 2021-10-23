@@ -33,7 +33,7 @@
         <span class="text--bold mx-10" v-text="`Próximo`"></span>
         <span class="icon__circle blue box-shadow" @click="nextStep">
           <fa-icon :icon="['fas', 'arrow-right']" v-if="!pendingRequest" />
-          <SpinLoader v-else />
+          <SpinLoader v-else  />
         </span>
       </div>
     </footer>
@@ -113,9 +113,17 @@ export default {
   mixins: [localStorageHandler],
   methods: {
     restoreData({ response, step }) {
-      this.setUserInfos(response)
-      this.currentStep = step
-      this.$store.commit("setUpdateFromLocalStorage", true)
+      try {
+        const userID = localStorage.getItem("userID")
+        this.$store.commit("setUserID", userID)
+        this.setLocalStorageItem(`userID`, userID)
+        this.setUserInfos(response)
+        this.currentStep = step
+        this.$store.commit("setUpdateFromLocalStorage", true)
+      }catch(e) {
+        console.error("Erro ao recuperar os dados")
+        console.error(e)
+      }
     },
     initRegister() {
       try {
@@ -158,6 +166,7 @@ export default {
         this.setLocalStorageItem(`userID`, this.userID)
         this.setLocalStorageItem(`currentStep`, this.currentStep)
       }
+      console.log("this.finalData: ", this.finalData)
     },
     getDataAndURL(specificStep) {
       const step = !specificStep ? this.currentStep : specificStep
@@ -173,6 +182,20 @@ export default {
         case 3: {
           const { code } = this.finalData
           return { url: `code`, data: { code } }
+        }
+        case 5: {
+          /* 
+          {
+            "publicPlace": "Rua Zuma de Sá Fernandes",
+            "number": "501",
+            "complement": "Antigo número 30",
+            "district": "Presidente Altino",
+            "city": "Osasco",
+            "state": "SP",
+            "zipCode": "06213040"
+          }
+          */
+          return { url: `address`, data: {  } }
         }
         case 6: {
           const { password } = this.finalData
