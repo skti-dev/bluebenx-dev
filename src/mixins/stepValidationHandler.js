@@ -7,6 +7,8 @@ export const stepValidationHandler = {
         let isValid = this.isEmpty(value)
         if(isValid) {
           switch(origin) {
+            case "district":
+            case "complement":
             case "state":
             case "address":
             case "city":
@@ -232,7 +234,7 @@ export const stepValidationHandler = {
         const validationArr = []
         this.$children.forEach(c => {
           Object.values(c.$refs).forEach((e, index) => {
-            validationArr.push(this.validate({target: e}, Object.keys(c.$refs)[index]))
+            if(e.getAttribute("required")) validationArr.push(this.validate({target: e}, Object.keys(c.$refs)[index]))
           })
         })
         

@@ -107,10 +107,10 @@ export default {
       return `${((totalPercentage * partialValue) / fullValue).toFixed(2)}%`
     }
   },
-  mounted() {
-    this.initRegister()
-  },
   mixins: [localStorageHandler],
+  mounted() {
+    this.verifyLocalStorage([`userID`, `currentStep`])
+  },
   methods: {
     restoreData({ response, step }) {
       try {
@@ -125,19 +125,26 @@ export default {
         console.error(e)
       }
     },
-    initRegister() {
-      try {
-        if(Object.keys(this.$route.params).length === 0) return this.verifyLocalStorage([`userID`, `currentStep`])
-      }catch(e) {
-        console.error("Erro ao iniciar o cadastro")
-        console.error(e)
-      }
-    },
     returnToTerms() {
       this.$router.push({ name: "terms" })
     },
     previousStep() {
       this.currentStep--
+    },
+    verifyStep5() {
+      try {
+        const hasAnyKey = keys => {
+          let hasAtLeastOneKey = false
+          keys.split(", ").forEach(key => {
+            if(key && Object.prototype.hasOwnProperty.call(this.finalData, key)) hasAtLeastOneKey = true
+          })
+          return hasAtLeastOneKey 
+        }
+        return hasAnyKey("cep, address, city, number, complement, district, state")
+      }catch(e) {
+        console.error("Erro ao verificar o step 5")
+        console.error(e)
+      }
     },
     async nextStep() {
       if(this.pendingRequest) return false
@@ -148,7 +155,7 @@ export default {
           }else{
             if(!this.$children[this.currentStep - 1].validateAllInputs()) return false
           }
-          if(this.currentStep != 5) await this.sendData()
+          if(this.currentStep != 5 || (this.currentStep === 5 && this.verifyStep5())) await this.sendData()
         }
         if(!this.errorMessage) this.currentStep < this.totalSteps ? this.currentStep++ : false
         if(this.currentStep === 7) {
@@ -166,7 +173,6 @@ export default {
         this.setLocalStorageItem(`userID`, this.userID)
         this.setLocalStorageItem(`currentStep`, this.currentStep)
       }
-      console.log("this.finalData: ", this.finalData)
     },
     getDataAndURL(specificStep) {
       const step = !specificStep ? this.currentStep : specificStep
@@ -184,18 +190,8 @@ export default {
           return { url: `code`, data: { code } }
         }
         case 5: {
-          /* 
-          {
-            "publicPlace": "Rua Zuma de Sá Fernandes",
-            "number": "501",
-            "complement": "Antigo número 30",
-            "district": "Presidente Altino",
-            "city": "Osasco",
-            "state": "SP",
-            "zipCode": "06213040"
-          }
-          */
-          return { url: `address`, data: {  } }
+          const data = this.returnStep5Data()
+          return { url: `address`, data }
         }
         case 6: {
           const { password } = this.finalData
@@ -204,6 +200,36 @@ export default {
         default: {
           return { error: true }
         }
+      }
+    },
+    returnStep5Data() {
+      try {
+        const userInfos = this.$store.getters.getUserInfos
+        const { publicPlace, number, complement, district, city, state, zipCode } = userInfos
+        const { address, cep } = this.finalData
+        const finalDataDistrict = this.finalData.district
+        const finalDataComplement = this.finalData.complement
+        const finalDataCity = this.finalData.city
+        const finalDataNumber = this.finalData.number
+        const finalDataState = this.finalData.state
+        
+        let hasDiff = false
+        if((publicPlace != address) || (finalDataNumber != number) || (cep != zipCode) || (finalDataCity != city) || (finalDataState != state) || (finalDataDistrict != district || finalDataComplement != complement)) hasDiff = true
+        if(!hasDiff) return { stop: true }
+
+        return {
+          publicPlace: address ? address : publicPlace,
+          number: finalDataNumber ? finalDataNumber : number,
+          district: finalDataDistrict ? finalDataDistrict : district,
+          complement: finalDataComplement ? finalDataComplement : complement,
+          city: finalDataCity ? finalDataCity : city,
+          state: finalDataState ? finalDataState : state,
+          zipCode: cep ? cep : zipCode
+        }
+      }catch(e) {
+        console.error("Erro ao retornar os dados do step 5")
+        console.error(e)
+        return { stop: true }
       }
     },
     handleStatus206(response) {
@@ -217,9 +243,10 @@ export default {
     },
     async sendData() {
       try {
-        this.pendingRequest = true
-        const { url, data, error } = this.getDataAndURL()
+        const { url, data, error, stop } = this.getDataAndURL()
+        if(stop) return false
         if(error) throw new Error(`Não foi possível receber os dados e a URL do step atual: ${this.currentStep}`)
+        this.pendingRequest = true
         const response = await this.$apiRequest.put(`/user/${this.userID}/${url}`, data)
         if(this.handleStatus206(response)) {
           this.errorMessage = ""
@@ -238,13 +265,13 @@ export default {
         const { data } = { ...response.data }
         if(!data) return false
         const { address, document, mother_name, name, father_name, social_name, email, phone } = data
-        const { city, district, number, state, publicPlace, zipCode } = address ? address : {}
+        const { city, district, number, state, publicPlace, zipCode, complement } = address ? address : {}
         const doc_number = document ? document.number : null
         const { ddd, ddi } = phone ? phone : {}
         const phone_number = phone && phone.number ? phone.number : {}
         let { birth_date } = data
         birth_date = birth_date ? birth_date : null
-        this.$store.commit("setUserInfos", { email, phone: ddd && ddi && phone_number ? `${ddi}${ddd}${phone_number}` : null, social_name, name, doc_number, birth_date, mother_name, father_name, city, district, number, state, publicPlace, zipCode })
+        this.$store.commit("setUserInfos", { email, phone: ddd && ddi && phone_number ? `${ddi}${ddd}${phone_number}` : null, social_name, name, doc_number, birth_date, mother_name, father_name, city, district, number, state, publicPlace, zipCode, complement })
       }catch(e) {
         console.error("Erro ao definir as informações do usuário")
         console.error(e)

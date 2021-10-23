@@ -44,20 +44,6 @@
   }
 }
 
-.related-fields {
-  width: 100%;
-  display: flex;
-  .v__field {
-    margin: unset;
-    &:nth-child(1) {
-      margin-right: 10px;
-    }
-    &:nth-child(2) {
-      width: 100px;
-    }
-  }
-}
-
 .last__step {
   display: flex;
   flex-direction: column;

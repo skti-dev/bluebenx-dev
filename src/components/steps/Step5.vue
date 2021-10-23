@@ -31,7 +31,7 @@
       </div>
       <p class="text--small text--upper my-15" v-text="`Endereço`"></p>
       <InputField
-        :customClass="`${isDisabled ? 'disabled active' : 'active'}`"
+        :customClass="`${isDisabled ? `disabled ${cep.value ? 'active' : ''}` : `${cep.value ? 'active' : ''}`}`"
         inputName="cep"
         inputType="text"
         :inputRef="cep.category"
@@ -44,7 +44,7 @@
         @input-blur="inputBlur($event), validate($event, cep.category)" 
       />
       <InputField
-        :customClass="`${isDisabled ? 'disabled active' : 'active'}`"
+        :customClass="`${isDisabled ? `disabled ${address.value ? 'active' : ''}` : `${address.value ? 'active' : ''}`}`"
         inputName="address"
         inputType="text"
         :inputRef="address.category"
@@ -55,8 +55,32 @@
         @input-focus="inputFocus" 
         @input-blur="inputBlur($event), validate($event, address.category)" 
       />
+      <InputField
+        :customClass="`${isDisabled ? `disabled ${district.value ? 'active' : ''}` : `${district.value ? 'active' : ''}`}`"
+        inputName="district"
+        inputType="text"
+        :inputRef="district.category"
+        labelText="Bairro"
+        :inputRequired="true"
+        :showError="!district.isValid"
+        :inputDisabled="isDisabled"
+        @input-focus="inputFocus" 
+        @input-blur="inputBlur($event), validate($event, district.category)" 
+      />
+      <InputField
+        :customClass="`${isDisabled ? `disabled ${complement.value ? 'active' : ''}` : `${complement.value ? 'active' : ''}`}`"
+        inputName="complement"
+        inputType="text"
+        :inputRef="complement.category"
+        labelText="Complemento"
+        :inputRequired="false"
+        :showError="!complement.isValid"
+        :inputDisabled="isDisabled"
+        @input-focus="inputFocus" 
+        @input-blur="inputBlur($event), validate($event, complement.category)" 
+      />
       <InputField 
-        :customClass="`${isDisabled ? 'disabled active' : 'active'}`"
+        :customClass="`${isDisabled ? `disabled ${number.value ? 'active' : ''}` : `${number.value ? 'active' : ''}`}`"
         inputName="number"
         inputType="text"
         :inputRef="number.category"
@@ -67,32 +91,30 @@
         @input-focus="inputFocus" 
         @input-blur="inputBlur($event), validate($event, number.category)" 
       />
-      <div class="related-fields">
-        <InputField 
-          :customClass="`${isDisabled ? 'disabled active' : 'active'}`"
-          inputName="city"
-          inputType="text"
-          :inputRef="city.category"
-          labelText="Cidade"
-          :inputRequired="true"
-          :showError="!city.isValid"
-          :inputDisabled="isDisabled"
-          @input-focus="inputFocus" 
-          @input-blur="inputBlur($event), validate($event, city.category)" 
-        />
-        <InputField 
-          :customClass="`${isDisabled ? 'disabled active' : 'active'}`"
-          inputName="state"
-          inputType="text"
-          :inputRef="state.category"
-          labelText="Estado"
-          :inputRequired="true"
-          :showError="!state.isValid"
-          :inputDisabled="isDisabled"
-          @input-focus="inputFocus" 
-          @input-blur="inputBlur($event), validate($event, state.category)" 
-        />
-      </div>
+      <InputField 
+        :customClass="`${isDisabled ? `disabled ${city.value ? 'active' : ''}` : `${city.value ? 'active' : ''}`}`"
+        inputName="city"
+        inputType="text"
+        :inputRef="city.category"
+        labelText="Cidade"
+        :inputRequired="true"
+        :showError="!city.isValid"
+        :inputDisabled="isDisabled"
+        @input-focus="inputFocus" 
+        @input-blur="inputBlur($event), validate($event, city.category)" 
+      />
+      <InputField 
+        :customClass="`${isDisabled ? `disabled ${state.value ? 'active' : ''}` : `${state.value ? 'active' : ''}`}`"
+        inputName="state"
+        inputType="text"
+        :inputRef="state.category"
+        labelText="Estado"
+        :inputRequired="true"
+        :showError="!state.isValid"
+        :inputDisabled="isDisabled"
+        @input-focus="inputFocus" 
+        @input-blur="inputBlur($event), validate($event, state.category)" 
+      />
       <button class="btn light-gray my-30 w-100" v-text="`Editar`" @click="editInfos"></button>
     </form>
 
@@ -134,6 +156,16 @@ export default {
         isValid: true,
         value: ""
       },
+      district:  {
+        category: "district",
+        isValid: true,
+        value: ""
+      },
+      complement:  {
+        category: "complement",
+        isValid: true,
+        value: ""
+      },
       isDisabled: true
     }
   },
@@ -158,6 +190,8 @@ export default {
         this.cep.value = this.userInfos.zipCode
         this.address.value = this.userInfos.publicPlace
         this.number.value = this.userInfos.number
+        this.district.value = this.userInfos.district
+        this.complement.value = this.userInfos.complement
         this.city.value = this.userInfos.city
         this.state.value = this.userInfos.state
       }catch(e) {

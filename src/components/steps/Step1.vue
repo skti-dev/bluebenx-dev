@@ -11,6 +11,7 @@
         inputPlaceholder="Digite o seu nome social"
         :showError="!socialName.isValid"
         errorMessage="Nome social inválido"
+        :inputRequired="true"
         @input-focus="inputFocus"
         @input-blur="inputBlur($event), validate($event, socialName.category)"
       />
@@ -25,6 +26,7 @@
         :showError="!cpfCnpj.isValid"
         errorMessage="CPF/CNPJ inválido"
         maskType="cpfCnpj"
+        :inputRequired="true"
         @input-focus="inputFocus" 
         @input-blur="inputBlur($event), validate($event, cpfCnpj.category)" 
       />

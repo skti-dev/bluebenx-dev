@@ -11,6 +11,7 @@
         labelText="Senha"
         :showError="!password.isValid"
         errorMessage="Senha inválida"
+        :inputRequired="true"
         @input-focus="inputFocus"
         @input-blur="inputBlur($event), validate($event, password.category)"
       />
@@ -23,6 +24,7 @@
         labelText="Confirmar senha"
         :showError="!passwordConfirm.isValid"
         errorMessage="Senha inválida"
+        :inputRequired="true"
         @input-focus="inputFocus"
         @input-blur="inputBlur($event), validate($event, passwordConfirm.category)"
       />

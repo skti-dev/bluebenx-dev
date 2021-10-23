@@ -11,6 +11,7 @@
         inputPlaceholder="Digite o seu e-mail"
         :showError="!email.isValid"
         errorMessage="E-mail inválido"
+        :inputRequired="true"
         @input-focus="inputFocus" 
         @input-blur="inputBlur($event), validate($event, email.category)" 
       />
@@ -26,6 +27,7 @@
         :showError="!phone.isValid"
         errorMessage="Telefone inválido"
         maskType="phone"
+        :inputRequired="true"
         @input-focus="inputFocus" 
         @input-blur="inputBlur($event), validate($event, phone.category)" 
       />
