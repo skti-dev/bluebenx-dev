@@ -40,7 +40,7 @@
         :inputRequired="true"
         :showError="!cep.isValid"
         :inputDisabled="isDisabled"
-        @input-focus="inputFocus" 
+        @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event), validate($event, cep.category)" 
       />
       <InputField
@@ -52,7 +52,7 @@
         :inputRequired="true"
         :showError="!address.isValid"
         :inputDisabled="isDisabled"
-        @input-focus="inputFocus" 
+        @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event), validate($event, address.category)" 
       />
       <InputField
@@ -64,7 +64,7 @@
         :inputRequired="true"
         :showError="!district.isValid"
         :inputDisabled="isDisabled"
-        @input-focus="inputFocus" 
+        @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event), validate($event, district.category)" 
       />
       <InputField
@@ -76,7 +76,7 @@
         :inputRequired="false"
         :showError="!complement.isValid"
         :inputDisabled="isDisabled"
-        @input-focus="inputFocus" 
+        @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event), validate($event, complement.category)" 
       />
       <InputField 
@@ -88,7 +88,7 @@
         :inputRequired="false"
         :showError="!number.isValid"
         :inputDisabled="isDisabled"
-        @input-focus="inputFocus" 
+        @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event), validate($event, number.category)" 
       />
       <InputField 
@@ -100,7 +100,7 @@
         :inputRequired="true"
         :showError="!city.isValid"
         :inputDisabled="isDisabled"
-        @input-focus="inputFocus" 
+        @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event), validate($event, city.category)" 
       />
       <InputField 
@@ -112,7 +112,7 @@
         :inputRequired="true"
         :showError="!state.isValid"
         :inputDisabled="isDisabled"
-        @input-focus="inputFocus" 
+        @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event), validate($event, state.category)" 
       />
       <button class="btn light-gray my-30 w-100" v-text="`Editar`" @click="editInfos"></button>

@@ -12,7 +12,7 @@
         :showError="!email.isValid"
         errorMessage="E-mail inválido"
         :inputRequired="true"
-        @input-focus="inputFocus" 
+        @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event), validate($event, email.category)" 
       />
       <br>
@@ -28,7 +28,7 @@
         errorMessage="Telefone inválido"
         maskType="phone"
         :inputRequired="true"
-        @input-focus="inputFocus" 
+        @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event), validate($event, phone.category)" 
       />
     </form>

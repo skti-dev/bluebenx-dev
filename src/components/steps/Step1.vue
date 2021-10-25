@@ -12,7 +12,7 @@
         :showError="!socialName.isValid"
         errorMessage="Nome social inválido"
         :inputRequired="true"
-        @input-focus="inputFocus"
+        @input-focus="inputFocus($event)"
         @input-blur="inputBlur($event), validate($event, socialName.category)"
       />
       <p class="text--bold mt-30" v-text="`Qual o seu número de CPF ou CNPJ?`"></p>
@@ -27,7 +27,7 @@
         errorMessage="CPF/CNPJ inválido"
         maskType="cpfCnpj"
         :inputRequired="true"
-        @input-focus="inputFocus" 
+        @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event), validate($event, cpfCnpj.category)" 
       />
     </form>

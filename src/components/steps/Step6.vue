@@ -12,7 +12,7 @@
         :showError="!password.isValid"
         errorMessage="Senha inválida"
         :inputRequired="true"
-        @input-focus="inputFocus"
+        @input-focus="inputFocus($event)"
         @input-blur="inputBlur($event), validate($event, password.category)"
       />
       <br>
@@ -25,7 +25,7 @@
         :showError="!passwordConfirm.isValid"
         errorMessage="Senha inválida"
         :inputRequired="true"
-        @input-focus="inputFocus"
+        @input-focus="inputFocus($event)"
         @input-blur="inputBlur($event), validate($event, passwordConfirm.category)"
       />
       <p v-if="!match" class="text--error mt-30" v-text="`As senhas não conferem`"></p>

@@ -5,7 +5,7 @@ export const inputFieldHandler = {
         const { target } = e
         const { parentElement, nextSibling, localName } = target
         if(localName != "input" && nextSibling) nextSibling.focus()
-        parentElement.classList.add("active")
+        if(document.activeElement === target) parentElement.classList.add("active")
       }catch(error) {
         console.error("Erro ao focar no input")
         console.error(error)
@@ -15,6 +15,7 @@ export const inputFieldHandler = {
       try {
         const { target } = e
         const { parentElement, value } = target
+        console.log("blur: ", e)
         if(!value) parentElement.classList.remove("active")
       }catch(error) {
         console.error("Erro ao desfocar no input")

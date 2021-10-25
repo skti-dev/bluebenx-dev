@@ -75,7 +75,8 @@ export default {
       errorMessage: "",
       recoveredResponse: {},
       recoveredStep: 0,
-      hasNotification: false
+      hasNotification: false,
+      sentData: {}
     }
   },
   computed: {
@@ -241,13 +242,32 @@ export default {
       }
       return true
     },
+    verifyLastData(dataToBeSent) {
+      if(!Object.keys(this.sentData).length) return true
+      let isDiff = JSON.stringify(this.sentData) != JSON.stringify(dataToBeSent)
+      if(isDiff) {
+        let hasDifferentValues = false
+        let hasSameKey = false
+        for(let key in this.sentData) {
+          if(Object.prototype.hasOwnProperty.call(dataToBeSent, key)) {
+            hasSameKey = true
+            if(dataToBeSent[key] != this.sentData[key]) hasDifferentValues = true
+          }
+        }
+        hasDifferentValues = hasSameKey ? hasDifferentValues : true
+        isDiff = hasDifferentValues
+      }
+      return isDiff
+    },
     async sendData() {
       try {
         const { url, data, error, stop } = this.getDataAndURL()
         if(stop) return false
         if(error) throw new Error(`Não foi possível receber os dados e a URL do step atual: ${this.currentStep}`)
+        if(!this.verifyLastData(data)) return false
         this.pendingRequest = true
         const response = await this.$apiRequest.put(`/user/${this.userID}/${url}`, data)
+        this.sentData = { ...this.sentData, ...data }
         if(this.handleStatus206(response)) {
           this.errorMessage = ""
           if(this.currentStep === 1) this.setUserInfos(response)
