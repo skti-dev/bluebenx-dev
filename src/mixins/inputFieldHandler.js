@@ -15,7 +15,6 @@ export const inputFieldHandler = {
       try {
         const { target } = e
         const { parentElement, value } = target
-        console.log("blur: ", e)
         if(!value) parentElement.classList.remove("active")
       }catch(error) {
         console.error("Erro ao desfocar no input")

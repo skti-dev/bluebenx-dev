@@ -270,7 +270,7 @@ export default {
         this.sentData = { ...this.sentData, ...data }
         if(this.handleStatus206(response)) {
           this.errorMessage = ""
-          if(this.currentStep === 1) this.setUserInfos(response)
+          if(this.currentStep === 1 || !this.$store.getters.getUserInfos.address) this.setUserInfos(response)
         }
         this.pendingRequest = false
       }catch(e) {

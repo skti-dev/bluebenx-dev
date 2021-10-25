@@ -74,10 +74,10 @@
         :inputRef="complement.category"
         labelText="Complemento"
         :inputRequired="false"
-        :showError="!complement.isValid"
+        :showError="false"
         :inputDisabled="isDisabled"
         @input-focus="inputFocus($event)" 
-        @input-blur="inputBlur($event), validate($event, complement.category)" 
+        @input-blur="inputBlur($event)" 
       />
       <InputField 
         :customClass="`${isDisabled ? `disabled ${number.value ? 'active' : ''}` : `${number.value ? 'active' : ''}`}`"
@@ -89,7 +89,7 @@
         :showError="!number.isValid"
         :inputDisabled="isDisabled"
         @input-focus="inputFocus($event)" 
-        @input-blur="inputBlur($event), validate($event, number.category)" 
+        @input-blur="inputBlur($event)" 
       />
       <InputField 
         :customClass="`${isDisabled ? `disabled ${city.value ? 'active' : ''}` : `${city.value ? 'active' : ''}`}`"
@@ -187,6 +187,8 @@ export default {
     },
     setAddressValues() {
       try {
+        console.log(this.userInfos)
+
         this.cep.value = this.userInfos.zipCode
         this.address.value = this.userInfos.publicPlace
         this.number.value = this.userInfos.number

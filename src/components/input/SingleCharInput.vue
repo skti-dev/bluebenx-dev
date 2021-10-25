@@ -1,5 +1,5 @@
 <template>
-  <input type="number" :maxlength="1" @input="verifyInput" v-model="inputValue" @keyup.delete="deletePrevious" @paste.prevent autocomplete="off" class="code mr-10 text--bold">
+  <input type="number" :maxlength="1" @input="verifyInput" v-model="inputValue" @keyup.delete="deletePrevious" @paste.prevent="paste" autocomplete="off" class="code mr-10 text--bold">
 </template>
 
 <script>
@@ -37,6 +37,16 @@ export default {
         }
       }catch(error) {
         console.error("Erro ao deletar o valor anterior")
+        console.error(error)
+      }
+    },
+    paste(e) {
+      try {
+        const { clipboardData } = e
+        const data = clipboardData.getData("text")
+        if(parseInt(data)) this.$emit("setValue", data)
+      }catch(error) {
+        console.error("Erro ao colar o texto no input")
         console.error(error)
       }
     }

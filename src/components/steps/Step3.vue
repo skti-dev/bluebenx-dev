@@ -4,11 +4,11 @@
       <p class="text--bold mb-10" v-text="`Validação de segurança`"></p>
       <p class="text--upper text--small" v-text="`Enviamos um código para o seu e-mail`"></p>
       <div class="code__validation mt-30">
-        <SingleCharInput @inputData="setFinalData('code-1', $event)" />
-        <SingleCharInput @inputData="setFinalData('code-2', $event)" />
-        <SingleCharInput @inputData="setFinalData('code-3', $event)" />
-        <SingleCharInput @inputData="setFinalData('code-4', $event)" />
-        <SingleCharInput @inputData="setFinalData('code-5', $event)" />
+        <SingleCharInput @inputData="setFinalData('code-1', $event)" @setValue="setInputValue" />
+        <SingleCharInput @inputData="setFinalData('code-2', $event)" @setValue="setInputValue" />
+        <SingleCharInput @inputData="setFinalData('code-3', $event)" @setValue="setInputValue" />
+        <SingleCharInput @inputData="setFinalData('code-4', $event)" @setValue="setInputValue" />
+        <SingleCharInput @inputData="setFinalData('code-5', $event)" @setValue="setInputValue" />
       </div>
       <span v-if="codeTime" class="code__resend text--bold" v-text="`Reenviar código: ${codeTime}s`"></span>
       <span v-else class="code__resend cursor--click text--bold" v-text="`Reenviar código`" @click="initCodeInterval(), $emit('resendCode')"></span>
@@ -70,6 +70,19 @@ export default {
       this.hasError = false
       return true
     },
+    setInputValue(value) {
+      try {
+        for(let i = 0; i < value.length; i++) {
+          if(this.$children[i]) {
+            this.$children[i].inputValue = value[i]
+            this.$children[i].$emit("inputData", this.$children[i].inputValue)
+          }
+        }
+      }catch(e) {
+        console.error("Erro ao definir o valor do input único")
+        console.error(e)
+      }
+    }
   },
   destroyed() {
     this.endCodeInterval()
