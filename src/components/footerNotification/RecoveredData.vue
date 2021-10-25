@@ -36,11 +36,12 @@ export default {
         console.error(e)
       }
     },
-    continueRegistration(status) {
+    async continueRegistration(status) {
       try {
         if(!status) {
           this.removeLocalStorageItem(`userID`)
           this.removeLocalStorageItem(`currentStep`)
+          await this.$apiRequest.delete(`/user/${this.$store.getters.getUserID}`)
           return this.$emit("close-notification")
         }
         this.$emit("restore-data", { response: this.response, step: this.step })
