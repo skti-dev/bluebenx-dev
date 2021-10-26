@@ -2,7 +2,7 @@
   <section class="home max-width">
     <div class="home__header">
       <div class="home__title">
-        <img class="mr-10" src="../assets/images/logo-bb-blue.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul." @click="$router.push({ name: 'login' })">
+        <img class="mr-10" src="../assets/images/logo-bb-blue.webp" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul." @click="$router.push({ name: 'login' })" width="auto" height="auto">
         <h3 v-text="`Olá, ${userInfos.social_name ? userInfos.social_name : userInfos.name ? userInfos.name : 'Anônimo'}`"></h3>
       </div>
       <fa-icon class="mr-10 text--dark-blue" :icon="['fas', 'bell']" />

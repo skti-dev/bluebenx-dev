@@ -7,7 +7,7 @@
       </div>
       <div class="register-welcome__title mt-10">
         <div class="logo mb-10">
-          <img src="../assets/images/logo-bb.png" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul.">
+          <img src="../assets/images/logo-bb.webp" alt="Logo da Bluebenx. Um aspiral formando uma letra 'B' em azul." width="auto" height="auto">
           <h2 v-text="`BlueBenx`" class="ml-5"></h2>
         </div>
         <h1 v-text="`Cadastro Conta Digital`"></h1>

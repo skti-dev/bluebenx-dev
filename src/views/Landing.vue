@@ -1,6 +1,6 @@
 <template>
   <section class="landing">
-    <img src="../assets/images/landing.png" alt="Logo da BlueBenx branco, ao centro. No fundo um gradiente leve entre tons de azul.">
+    <img src="../assets/images/landing.webp" alt="Logo da BlueBenx branco, ao centro. No fundo um gradiente leve entre tons de azul." width="auto" height="auto">
   </section>
 </template>
 
