@@ -86,7 +86,7 @@
         :inputRef="number.category"
         labelText="Número"
         :inputRequired="false"
-        :showError="!number.isValid"
+        :showError="false"
         :inputDisabled="isDisabled"
         @input-focus="inputFocus($event)" 
         @input-blur="inputBlur($event)" 

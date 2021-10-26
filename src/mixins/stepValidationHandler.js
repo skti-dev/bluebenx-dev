@@ -204,7 +204,7 @@ export const stepValidationHandler = {
     },
     passwordValidation(value) {
       try {
-        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value) //eslint-disable-line
+        return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])?[A-Za-z\d@$!%*#?&]{8,}$/.test(value) //eslint-disable-line
       }catch(e) {
         console.error("Erro ao validar senha")
         console.error(e)
