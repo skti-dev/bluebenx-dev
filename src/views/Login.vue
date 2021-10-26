@@ -1,7 +1,7 @@
 <template>
   <section class="login max-width">
     <div class="login__img">
-      <img src="../assets/images/img-login.webp" alt="Mulher jovem sorrindo, vestindo uma blusa amarela e segurando um celular." width="100%" height="100%">
+      <img src="../assets/images/img-login.webp" alt="Mulher jovem sorrindo, vestindo uma blusa amarela e segurando um celular.">
     </div>
     <form action="#" method="POST" @submit.prevent class="login__form mb-30">
       <fieldset>
