@@ -70,7 +70,7 @@ export const stepValidationHandler = {
     },
     nameValidation(value) {
       try {
-        return /[A-Za-z\u00C0-\u017F]* [A-Za-z\u00C0-\u017F]*/.test(value) //eslint-disable-line
+        return /[A-Za-z\u00C0-\u017F]* [A-Za-z\u00C0-\u017F]*/.test(value) 
       }catch(e) {
         console.error("Erro ao validar nome")
         console.error(e)
@@ -79,7 +79,7 @@ export const stepValidationHandler = {
     },
     socialNameValidation(value) {
       try {
-        const isValid = /^[a-zA-Z\u00C0-\u017F´]{2,}$/.test(value) //eslint-disable-line
+        const isValid = /^[a-zA-Z\u00C0-\u017F´]{2,}$/.test(value)
         if(!isValid) return this.nameValidation(value)
         return true
       }catch(e) {
@@ -186,7 +186,7 @@ export const stepValidationHandler = {
     },
     emailValidation(value) {
       try {
-        return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i.test(value) //eslint-disable-line
+        return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i.test(value) 
       }catch(e) {
         console.error("Erro ao validar email")
         console.error(e)
@@ -195,7 +195,7 @@ export const stepValidationHandler = {
     },
     phoneValidation(value) {
       try {
-        return /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/.test(value) //eslint-disable-line
+        return /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})-?(\d{4}))$/.test(value) 
       }catch(e) {
         console.error("Erro ao validar email")
         console.error(e)
@@ -204,7 +204,7 @@ export const stepValidationHandler = {
     },
     passwordValidation(value) {
       try {
-        return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])?[A-Za-z\d@$!%*#?&]{8,}$/.test(value) //eslint-disable-line
+        return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])?[A-Za-z\d@$!%*#?&]{8,}$/.test(value) 
       }catch(e) {
         console.error("Erro ao validar senha")
         console.error(e)
@@ -213,7 +213,7 @@ export const stepValidationHandler = {
     },
     numberValidation(value) {
       try {
-        return /^[a-zA-Z0-9_.-\u00C0-\u017F\s]*$/.test(value) //eslint-disable-line
+        return /^[a-zA-Z0-9_.-\u00C0-\u017F\s]*$/.test(value) 
       }catch(e) {
         console.error("Erro ao validar número")
         console.error(e)
@@ -222,7 +222,7 @@ export const stepValidationHandler = {
     },
     cepValidation(value) {
       try {
-        return /^([\d]{2})\.*([\d]{3})-*([\d]{3})/.test(value) //eslint-disable-line
+        return /^([\d]{2})\.*([\d]{3})-*([\d]{3})/.test(value) 
       }catch(e) {
         console.error("Erro ao validar CEP")
         console.error(e)
